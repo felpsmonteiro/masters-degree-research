@@ -10,8 +10,6 @@ import seaborn as sns
 
 import functions as fc
 
-pd.set_option('display.max_rows', None)
-
 sensitivity, eps = 1, [0.01, 0.05, .1, .5, 1]
 rowstoread = None
 rangetimes = 10
