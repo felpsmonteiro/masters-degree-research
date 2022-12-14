@@ -17,7 +17,7 @@ rowstoread = None
 rangetimes = 10
 
 #Dataset Cleanning/Adjustments
-traf_df                     = pd.read_csv('traffic_table4.csv', sep=';', nrows=None)
+traf_df                     = pd.read_csv('Datasets/traffic_table4.csv', sep=';', nrows=None)
 traf_df["DESTPORT"]         = pd.to_numeric(traf_df["DESTPORT"])
 protocol, service, ports    = traf_df['PROTOCOL'].unique(), np.array(traf_df['SERVICE'].unique()), np.array(traf_df['DESTPORT'].unique())
 
