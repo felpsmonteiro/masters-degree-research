@@ -15,7 +15,7 @@ rowstoread = None
 rangetimes = 10
 
 #Dataset Cleanning/Adjustments
-traf_df                     = pd.read_csv('Unicauca-dataset-April-June-2019-Network-flows.csv', sep=';', nrows=None)
+traf_df                     = pd.read_csv('Datasets/Unicauca-dataset-April-June-2019-Network-flows.csv', sep=';', nrows=None)
 traf_df["DESTPORT"]         = pd.to_numeric(traf_df["DESTPORT"])
 protocol, service, ports    = traf_df['PROTOCOL'].unique(), np.array(traf_df['SERVICE'].unique()), np.array(traf_df['DESTPORT'].unique())
 
