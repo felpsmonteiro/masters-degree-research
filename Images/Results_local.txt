@@ -1,0 +1,8 @@
+[array([98.73357045, 20.09025812,  9.63336788,  1.77303135,  1.23835638]), array([28.22100498,  6.38537112,  2.63342784,  0.70675426,  0.23660904]), array([11.90821198,  3.33489067,  1.52701919,  0.38277725,  0.14281593])]
+Graphic saved at: network-traffic-anonymization\Images\ports_mre_gm_results.png
+
+[array([68.40488428, 15.82718265,  7.60593275,  1.75148367,  0.69446583]), array([26.18034053,  5.40253565,  2.44084314,  0.39319021,  0.18382919]), array([12.820093  ,  3.85956094,  1.11583247,  0.24733688,  0.11102919])]
+Graphic saved at: network-traffic-anonymization\Images\services_mre_gm_results.png
+
+[array([0.06093642, 0.01142073, 0.00545876, 0.00129117, 0.00060324]), array([0.01948145, 0.0044005 , 0.00200692, 0.00038007, 0.00019327]), array([0.01948145, 0.0044005 , 0.00200692, 0.00038007, 0.00019327])]
+Graphic saved at: network-traffic-anonymization\Images\protocols_mre_gm_results.png
