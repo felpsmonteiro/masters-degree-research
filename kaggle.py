@@ -11,7 +11,7 @@ import seaborn as sns
 import functions as fc
 
 sensitivity, eps = 1, [0.01, 0.05, .1, .5, 1]
-rowstoread = 1000
+rowstoread = None
 rangetimes = 10
 
 #Dataset Cleanning/Adjustments
