@@ -130,10 +130,10 @@ class Results():
                             errors_4[count][error_metr][k].append(float("{:.2f}".format(ego_metric_mean_4)))
 
             legends = [
-                        'abordagem proposta',
-                        'mecanismo geométrico',
-                        'mecanismo log-laplace',
-                        'privbayes'
+                        'Abordagem Proposta',
+                        'Mecanismo Geométrico',
+                        'Mecanismo Log-Laplace',
+                        'Privbayes'
                     ]
 
             for error_metr in self.error_metrics:
