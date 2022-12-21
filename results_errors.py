@@ -35,19 +35,19 @@ class Results():
             errors_1 = {}  # approach errors
             errors_2 = {}  # geometric errors
             errors_3 = {}  # log-laplace errors
-            # errors_4 = {}  # privbayes errors
+            errors_4 = {}  # privbayes errors
 
             for count in self.counts:
                 errors_1[count] = {}
                 errors_2[count] = {}
                 errors_3[count] = {}
-                # errors_4[count] = {}
+                errors_4[count] = {}
             
                 for error_metr in self.error_metrics:
                     errors_1[count][error_metr] = []
                     errors_2[count][error_metr] = []
                     errors_3[count][error_metr] = []
-                    # errors_4[error_metr] = []
+                    errors_4[count][error_metr] = []
 
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
@@ -55,19 +55,19 @@ class Results():
                 errors_list_1 = {}  # approach
                 errors_list_2 = {}  # geometric
                 errors_list_3 = {}  # log-laplace
-                # errors_list_4 = {}  # privbayes
+                errors_list_4 = {}  # privbayes
 
                 for count in self.counts:
                     errors_list_1[count] = {}
                     errors_list_2[count] = {}
                     errors_list_3[count] = {}
-                    # errors_list_4[count] = {}
+                    errors_list_4[count] = {}
 
                     for error_metr in self.error_metrics:
                         errors_list_1[count][error_metr] = []
                         errors_list_2[count][error_metr] = []
                         errors_list_3[count][error_metr] = []
-                        # errors_list_4[count][error_metr] = []
+                        errors_list_4[count][error_metr] = []
 
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
@@ -81,8 +81,8 @@ class Results():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
-                    # with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_priv_bayes.pkl' % ( dataset, e, r ))), 'rb') as f:
-	                #     data4 = pkl.load(f)
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
+	                    data4 = pkl.load(f)
 
                     for error_metr in self.error_metrics:
                         for count in self.counts:
@@ -95,8 +95,8 @@ class Results():
                             error_3 = err_metrics.calculate(error_metr, data[count], data3[count])
                             errors_list_3[count][error_metr].append(error_3) 
 
-                            # error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
-                            # errors_list_4[count][error_metr].append(error_4) 
+                            error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
+                            errors_list_4[count][error_metr].append(error_4) 
 
                 for error_metr in self.error_metrics:
                     for count in self.counts:
@@ -109,14 +109,14 @@ class Results():
                         ego_metric_mean_3 = np.mean(errors_list_3[count][error_metr])
                         errors_3[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_3)))
 
-                        # ego_metric_mean_4 = np.mean(errors_list_4[count][error_metr])
-                        # errors_4[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_4)))
+                        ego_metric_mean_4 = np.mean(errors_list_4[count][error_metr])
+                        errors_4[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_4)))
 
             legends = [
                         'abordagem proposta',
                         'mecanismo geométrico',
                         'mecanismo log-laplace',
-                        # 'privbayes'
+                        'privbayes'
                     ]
 
             for error_metr in self.error_metrics:
@@ -125,7 +125,7 @@ class Results():
                     y.append(errors_1[count][error_metr])
                     y.append(errors_2[count][error_metr])
                     y.append(errors_3[count][error_metr])
-                    # y.append(errors_4[count][error_metr])
+                    y.append(errors_4[count][error_metr])
 
                     path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result.png' % ( dataset, count, error_metr) ))  
                     graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=True, line_legends=legends, figsize=(5, 5), path=path_result)
