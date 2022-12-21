@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     es = [ 0.1 ] 
 
-    ks = [ 5, 10, 15 ]
+    ks = [ 10, 50, 100 ]
 
     error_metrics = [
                     'jaccard'
