@@ -153,8 +153,8 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                #'local',
-                'kaggle'    
+                'local',
+                # 'kaggle'    
                 ]
 
     es = [ 0.1 ] 
