@@ -162,7 +162,7 @@ if __name__ == "__main__":
     ks = [ 5, 10, 15 ]
 
     error_metrics = [
-                    'op'
+                    'jaccard'
                 ]
 
     counts = [

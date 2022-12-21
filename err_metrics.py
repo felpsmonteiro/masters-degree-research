@@ -3,12 +3,16 @@ import numpy as np
 def calculate(error_metric, orig, pert, k=2):
     if error_metric == 'mae':
         error = mae(orig, pert)
+    
     elif error_metric == 'mre':
         error = mre(orig, pert)
+    
     elif error_metric == 'op':
         error = op(orig, pert, k=k)
+        
     elif error_metric == 'jaccard':
         error = jaccard_distance_non_zeros(orig, pert, k=k)
+    
     return error
 
 # Mean Absolute Error
