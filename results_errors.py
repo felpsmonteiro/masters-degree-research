@@ -127,18 +127,20 @@ class Results():
                     y.append(errors_3[count][error_metr])
                     y.append(errors_4[count][error_metr])
 
-                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result.png' % ( dataset, count, error_metr) ))  
+                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result_log.png' % ( dataset, count, error_metr) ))  
                     graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=True, line_legends=legends, figsize=(5, 5), path=path_result)
 
+                    path_result2 = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result.png' % ( dataset, count, error_metr) ))  
+                    graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(5, 5), path=path_result2)
 
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                # 'kaggle'    
+                #'local',
+                'kaggle'    
                 ]
 
-    es = [ .01, .05, .1, .5, 1 ] 
+    es = [ .01, .1, .5, 1 ] 
 
     error_metrics = [
                     'mae',

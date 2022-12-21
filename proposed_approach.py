@@ -50,8 +50,8 @@ class ProposedApproach():
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                # 'kaggle'    
+                # 'local',
+                'kaggle'    
                 ]
 
     es = [ .01, .05, .1, .5, 1 ] 
