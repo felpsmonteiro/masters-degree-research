@@ -136,7 +136,7 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                # 'local',
+                'local',
                 'kaggle'    
                 ]
 

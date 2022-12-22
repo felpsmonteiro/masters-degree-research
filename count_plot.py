@@ -22,7 +22,7 @@ ax.grid(b = True, color ='grey',
 plt.bar(x, y)
 plt.xticks(x)
 addlabels(x, y)
-plt.xlabel('Serviço de Streaming')
+plt.xlabel('Serviços de Streaming')
 plt.ylabel('Acessos')
 plt.tight_layout()
 plt.show()

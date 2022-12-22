@@ -153,13 +153,13 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                'local',
+                # 'local',
                 'kaggle'    
                 ]
 
     es = [ 0.1 ] 
 
-    ks = [ 5, 25]
+    ks = [ 50, 75, 100 ]
 
     error_metrics = [
                     'jaccard'
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     counts = [
                 # 'protocols',
                 'services',
-                'ports'
+                # 'ports'
             ]
 
     runs = 10

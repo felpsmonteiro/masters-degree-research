@@ -39,7 +39,8 @@ def line_plot(x, ys, path=None, line_legends=None, legend_path=None,
 
     plt.legend()
     if ylog:
-        plt.yscale('log')    
+        plt.yscale('log')
+        print(plt.yscale('log'))    
     # if xlog:
         # plt.xscale('log')    
     if ylabel:
