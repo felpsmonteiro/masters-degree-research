@@ -154,12 +154,12 @@ if __name__ == "__main__":
 
     datasets = [
                 'local',
-                # 'kaggle'    
+                'kaggle'    
                 ]
 
     es = [ 0.1 ] 
 
-    ks = [ 10, 25, 50]
+    ks = [ 5, 25]
 
     error_metrics = [
                     'jaccard'
