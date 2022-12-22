@@ -147,7 +147,7 @@ class Results():
                     
 
                     path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk.png' % ( dataset, count, error_metr, k) ))  
-                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(5, 5), path=path_result)
+                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
 
 if __name__ == "__main__":
