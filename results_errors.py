@@ -126,8 +126,6 @@ class Results():
                     y.append(errors_2[count][error_metr])
                     y.append(errors_3[count][error_metr])
                     y.append(errors_4[count][error_metr])
-
-                    print(error_metr, count, legends, y)
                     
                     path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result_log.png' % ( dataset, count, error_metr) ))  
                     graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=True, line_legends=legends, figsize=(5, 5), path=path_result)
