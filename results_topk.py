@@ -27,7 +27,7 @@ class Results():
     def run(self):
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
             # original data
@@ -87,7 +87,7 @@ class Results():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
@@ -146,18 +146,18 @@ class Results():
                     y.append(errors_4[count][error_metr].values())
                     
 
-                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk.png' % ( dataset, count, error_metr, k) ))  
+                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
                     graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
 
 if __name__ == "__main__":
 
     datasets = [
-                # 'local',
+                'local',
                 'kaggle'    
                 ]
 
-    es = [ 0.1 ] 
+    es = [ .01, .1, .5, 1 ] 
 
     ks = [ 50, 75, 100 ]
 
@@ -166,9 +166,9 @@ if __name__ == "__main__":
                 ]
 
     counts = [
-                # 'protocols',
+                'protocols',
                 'services',
-                # 'ports'
+                'ports'
             ]
 
     runs = 10
