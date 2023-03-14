@@ -1,6 +1,6 @@
-# import os
-# import numpy as np
-# import pandas as pd
+import os
+import numpy as np
+import pandas as pd
 # import math
 # import matplotlib.pyplot as plt
 # import matplotlib.patches as mpatches
@@ -14,13 +14,13 @@
 # import warnings
 # warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning) 
 
-# def Count(array, df, colname):
-#     data_arr = []
+def Count(array, df, colname):
+    data_arr = []
     
-#     for i in array:
-#         data_arr.append(df[df[colname] == i].shape[0])
+    for i in array:
+        data_arr.append(df[df[colname] == i].shape[0])
 
-#     return np.array(data_arr)
+    return np.array(data_arr)
 
 # # def Geometric_Mechanism(arr, eps, sensitivity):
     

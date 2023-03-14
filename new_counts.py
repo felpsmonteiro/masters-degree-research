@@ -14,20 +14,16 @@ df         = pd.read_csv('Datasets/Unicauca-dataset-April-June-2019-Network-flow
 
 col = ['DESTPORT', 'PROTOCOL', 'SERVICE']
 
-df_counts = df.sort_values(['DESTPORT'],ascending=False).groupby(col)['SERVICE'].count().to_csv('counts.csv', sep=';')
+df_counts = df.sort_values(['DESTPORT'],ascending=False).groupby(['DESTPORT', 'PROTOCOL', 'SERVICE'])['SERVICE'].count().to_csv('counts.csv', sep=';')
 df_counts = pd.read_csv('counts.csv', sep=';', nrows = None)
 df_counts = df_counts.rename(columns={'SERVICE.1':'COUNT'})
 
-df_port = df_counts.groupby(['DESTPORT', 'PROTOCOL']).sum().reset_index()
-df_prot = df['PROTOCOL'].value_counts().rename_axis('PROTOCOL').reset_index(name='COUNT').sort_values(['PROTOCOL'])
-df_serv = df['SERVICE'].value_counts().rename_axis('SERVICE').reset_index(name='COUNT').sort_values(['SERVICE'])
-
-col = df_counts.columns
+df_port, df_prot, df_serv = df_counts.groupby(['DESTPORT'])['COUNT'].sum().reset_index(), df_counts.groupby(['PROTOCOL'])['COUNT'].sum().reset_index(), df_counts.groupby(['SERVICE'])['COUNT'].sum().reset_index()
 
 for e in es:
     print('--------- eps ' + str(e) + ' ---------')
-    # for r in range(runs):
-    #     print('...... run ' + str(r) + ' ......')
+    for r in range(runs):
+        print('...... run ' + str(r) + ' ......')
     
     df_counts[e] = mechanisms.geometric(df_counts['COUNT'].to_numpy(), e)
     df_port[e]   = mechanisms.geometric(df_port['COUNT'].to_numpy(), e)

@@ -25,7 +25,7 @@ class Results():
     def run(self):
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
             # original data
@@ -72,7 +72,7 @@ class Results():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
@@ -130,10 +130,10 @@ class Results():
                     print(dataset, error_metr , count)
                     
                     print(y)
-                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result_log.png' % ( dataset, count, error_metr) ))  
+                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result_log_2.png' % ( dataset, count, error_metr) ))  
                     graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=True, line_legends=legends, figsize=(5, 5), path=path_result)
 
-                    path_result2 = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result.png' % ( dataset, count, error_metr) ))  
+                    path_result2 = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_result_2.png' % ( dataset, count, error_metr) ))  
                     graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(5, 5), path=path_result2)
 
 if __name__ == "__main__":
@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
     error_metrics = [
                     'mae',
-                    # 'mre'
+                    'mre'
                 ]
 
     counts = [
