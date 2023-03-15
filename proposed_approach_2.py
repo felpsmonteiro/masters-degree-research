@@ -22,7 +22,7 @@ class ProposedApproach():
             
             #  0. Ler dados tabelão salvo pre processamento
             with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_tab_2.pkl')), 'rb') as f:
-                data2 = pkl.load(f)
+                data = pkl.load(f)
          
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
@@ -31,17 +31,17 @@ class ProposedApproach():
                     print('...... run ' + str(r) + ' ......')
                     
                     # 1. Add ruido no tabelão -- Nova coluna eps[e];
-                    data2 = pd.DataFrame(data2, columns = ['DESTPORT','PROTOCOL','SERVICE', 'COUNT'])
-                    data2[e] = mechanisms.geometric(data2['COUNT'].to_numpy(), e)
+                    # data = pd.DataFrame(data, columns = ['DESTPORT','PROTOCOL','SERVICE', 'COUNT'])
+                    data[e] = mechanisms.geometric(data['COUNT'].to_numpy(), e)
                                         
                     # 2. services_noisy = data2.groupby('SERVICE')[e].sum().to_numpy;
-                    services_noisy = data2.groupby('SERVICE')[e].sum()
+                    services_noisy = data.groupby('SERVICE')[e].sum()
                     
                     # 3. protocols_noisy = data.groupby('PROTOCOL')[e].sum().to_numpy();
-                    protocols_noisy = data2.groupby('PROTOCOL')[e].sum()
+                    protocols_noisy = data.groupby('PROTOCOL')[e].sum()
                     
                     # 4. ports_noisy = data.groupby('DESTPORT')[e].sum().to_numpy;
-                    ports_noisy = data2.groupby('DESTPORT')[e].sum()
+                    ports_noisy = data.groupby('DESTPORT')[e].sum()
                    
                     protocols_post_processed = mechanisms.post_processing(protocols_noisy.to_numpy())
                     services_post_processed = mechanisms.post_processing(services_noisy.to_numpy())
@@ -59,13 +59,13 @@ class ProposedApproach():
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                'kaggle'    
+                'kaggle',
+                'local'    
                 ]
 
     es = [ .01, .1, .5, 1 ] 
 
-    runs = 10
+    runs = 50
 
     approach = ProposedApproach(datasets, es, runs)
     approach.run()
