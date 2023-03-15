@@ -27,11 +27,10 @@ class Results():
             print('***************** DATASET ' + dataset + ' *****************')
             with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
-
-            # original data
-            # protocols, services, ports = data[0], data[1], data[2]
-            # prot_count, serv_count, ports_count = data[3], data[4], data[5]
-
+            
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_tab_2.pkl')), 'rb') as f:
+	            data_ =  pd.DataFrame(pkl.load(f), columns = ['DESTPORT','PROTOCOL','SERVICE', 'COUNT'])
+    
             errors_1 = {}  # approach errors
             errors_2 = {}  # geometric errors
             errors_3 = {}  # log-laplace errors

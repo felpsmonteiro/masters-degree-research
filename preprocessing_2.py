@@ -19,6 +19,8 @@ class PreProcessing():
         df_counts = pd.read_csv('counts.csv', sep=';', nrows = None)
         df_counts = df_counts.rename(columns={'SERVICE.1':'COUNT'})
 
+        df_counts_array = df_counts.to_numpy()
+
         df_prot, df_serv, df_port = df_counts.groupby(['PROTOCOL'])['COUNT'].sum().reset_index(), df_counts.groupby(['SERVICE'])['COUNT'].sum().reset_index(), df_counts.groupby(['DESTPORT'])['COUNT'].sum().reset_index()
 
         protocol, service, ports = df_prot['PROTOCOL'].unique(), df_serv['SERVICE'].unique(), df_port['DESTPORT'].unique()
@@ -34,7 +36,11 @@ class PreProcessing():
                     }
         
         with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '_2.pkl')), 'wb') as f:
-	        pkl.dump(new_data, f) 
+            pkl.dump(new_data, f)
+        
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '_tab_2.pkl')), 'wb') as f:
+            pkl.dump(df_counts_array, f)
+
 
 if __name__ == "__main__":
 

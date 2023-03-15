@@ -5,9 +5,12 @@ import matplotlib.pyplot as plt
 def line_plot(x, ys, path=None, line_legends=None, legend_path=None, 
               xlabel=None, ylabel=None, title=None, xlog=False, ylog=False,
               linestyles = [':', 'dashed', ':', '--', '-.', 'dashed'],
+            #  colors = ['#003f5c', '#bc5090', '#ef5675', '#442788'], #ff764a', '#F01F0F'],
+            #   colors = ['#a89a1f', '#92abf9', '#7073ac', '#442788', '#AF10E0', '#F01F0F'],
+            
             #   colors = ['#000000', '#360CE8', '#4ECE00', '#FF0000', '#FF69B4', '#FFFF00', '#00009F', '#F3F0F0', '#AF10E0', '#F01F0F'],
-              colors = ['#a89a1f', '#92abf9', '#7073ac', '#442788', '#AF10E0', '#F01F0F'],
-            #   colors = ['#4ECE00', '#360CE8', '#FFFF00', '#F01F0F', '#AF10E0'],
+            
+              colors = ['#4ECE00', '#360CE8', '#faa43a', '#F01F0F', '#AF10E0'],
               markers = ['d','|','o','v','d','1'],
               figsize=(5, 5),
               ylim=None):
