@@ -47,8 +47,8 @@ class Geometric():
 if __name__ == "__main__":
 
     datasets = [
-                # 'local',
-                'kaggle'    
+                'kaggle',
+                'local'
                 ]
 
     es = [ .01, .1, .5, 1 ] 

@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     es = [ .01, .1, .5, 1 ] 
 
-    runs = 50
+    runs = 10
 
     approach = ProposedApproach(datasets, es, runs)
     approach.run()

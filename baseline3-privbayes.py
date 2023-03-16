@@ -129,8 +129,8 @@ class PrivBayes():
 if __name__ == "__main__":
 
     datasets = {
-        # 'local': 'traffic_table4.csv',
-        'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
+        'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv',
+        'local': 'traffic_table4.csv'
      }
 
     es = [ .01, .1, .5, 1 ] 
