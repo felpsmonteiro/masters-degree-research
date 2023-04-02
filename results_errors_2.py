@@ -1,14 +1,18 @@
 import os
-import pandas as pd
 import numpy as np
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+pd.set_option('display.max_rows', 1000)
+import seaborn as sns
 import functions as fc
 import pickle as pkl
-import seaborn as sns
 import mechanisms
 import err_metrics
 import graphics
 
-pd.set_option('display.max_rows', 1000)
+
+
 
 class Results():
 
@@ -148,23 +152,34 @@ class Results():
                         'Privbayes'
                     ]
 
-            
-            
-            
             for error_metr in self.error_metrics:
                 for count in self.counts:
+                    sns.set_theme(style="darkgrid")
+                    # graph.set(yscale='log')
+                    graph = sns.lineplot(data=df_main, x="Epsilon", y=f"{count}_{error_metr}",
+                                         hue="Legends", style="Legends", err_style='band',
+                                         markers=True, dashes=False)
+                    graph.set_yscale('log')
+                    # graph.set_title('$\epsilon$')
+                    graph.set_xlabel('$\epsilon$')
+                    graph.set_ylabel(error_metr)
+                    fig = graph.get_figure()
+                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  error_metr, '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
                     
-                    sns.lineplot(x='Epsilon', y='y', data=df, ci=95)
-            #         y = []
-            #         y.append(errors_1[count][error_metr])
-            #         y.append(errors_2[count][error_metr])
-            #         y.append(errors_3[count][error_metr])
-            #         y.append(errors_4[count][error_metr])
-                    
-            #         print(y)
+                    # fig = graph.get_figure()
+                    # fig.savefig('imagens/grafico.png')
                     
 
- 
+                    
+                    # graph.set_yscale("log")
+                    
+                    # sns.lineplot(
+                    #             data=df_main, x="Epsilon", y=f"{count}_{error_metr}", hue="Legends", err_style="bars", errorbar=("se", 2)
+                    #         )
+                    
+                    # sns.lineplot(data=data_main, x="timepoint", y="signal", hue="event")
+                    # sns.lineplot(x='Epsilon', y='y', data=df, ci=95)
+   
             #         path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset, error_metr, '%s_%s_%s_result_log_2.png' % ( dataset, count, error_metr) ))  
             #         graphics.line_plot(np.array(self.es), np.array(y), xlabel='$\epsilon$', ylabel= error_metr, ylog=True, line_legends=legends, figsize=(5, 5), path=path_result)
 

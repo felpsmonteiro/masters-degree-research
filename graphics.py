@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 
 def line_plot(x, ys, path=None, line_legends=None, legend_path=None, 
@@ -59,3 +60,16 @@ def line_plot(x, ys, path=None, line_legends=None, legend_path=None,
         plt.show()
     plt.clf()
     plt.close()
+
+def plot_line_graph(data=None, x=None, y=None, hue=None, style=None,
+                    title=None, xlabel=None, ylabel=None, filename=None,
+                    yscale='linear', save_path='.', dpi=300, figsize=(5,5)):
+    
+    sns.set_theme(style="darkgrid")
+    graph = sns.lineplot(data=df, x=x_col, y=y_col, hue=legend_col, style=legend_col, err_style='band', markers=True, dashes=False)
+    graph.set_title(title)
+    graph.set_xlabel(xlabel)
+    graph.set_ylabel(ylabel)
+    graph.set_yscale(yscale)
+    fig = graph.get_figure()
+    fig.savefig(f"{save_path}/{filename}")
