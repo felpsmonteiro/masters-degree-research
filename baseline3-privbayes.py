@@ -73,7 +73,7 @@ class PrivBayes():
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
 
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
             protocols, services, ports = data['protocols_names'], data['services_names'], data['ports_names']
@@ -123,7 +123,7 @@ class PrivBayes():
                         'ports' : p_count
                     }
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
 
 if __name__ == "__main__":
@@ -133,7 +133,7 @@ if __name__ == "__main__":
         'local': 'traffic_table4.csv'
      }
 
-    es = [ .01, .1, .5, 1 ] 
+    es = [ .1, .5, 1 ] 
 
     runs = 10
 

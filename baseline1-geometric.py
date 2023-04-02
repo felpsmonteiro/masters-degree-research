@@ -19,10 +19,9 @@ class Geometric():
     def run(self):
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
-            # protocols, services, ports = data[0], data[1], data[2]
             prot_count, serv_count, ports_count = data['protocols'], data['services'], data['ports']
 
             for e in self.es:
@@ -41,7 +40,7 @@ class Geometric():
                         'ports' : ports_noisy
                     }
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
 
 if __name__ == "__main__":
@@ -51,7 +50,7 @@ if __name__ == "__main__":
                 'local'
                 ]
 
-    es = [ .01, .1, .5, 1 ] 
+    es = [ .1, .5, 1 ] 
 
     runs = 10
 
