@@ -146,6 +146,8 @@ class Results():
                     y.append(errors_3[count][error_metr])
                     y.append(errors_4[count][error_metr])
                     
+                    print(y)
+                    
                     # data = {'y': y, 'x': legends}
                     # df = pd.DataFrame(data)
                     # print(df)
