@@ -46,7 +46,8 @@ class ProposedApproach():
                     # services_post_processed = mechanisms.post_processing(services_noisy.to_numpy())
                     # protocols_post_processed = mechanisms.post_processing(protocols_noisy.to_numpy())
                     # ports_post_processed = mechanisms.post_processing(ports_noisy.to_numpy())
-
+                    np.clip(level_noisy_p_apr[e][at][lv], 1, None)
+                    
                     noisy_data = {
                         # 'protocols' : protocols_post_processed,
                         # 'services' : services_post_processed,
