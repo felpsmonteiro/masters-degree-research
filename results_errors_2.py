@@ -33,8 +33,8 @@ class Results():
             errors_2 = {}  # geometric errors
             errors_3 = {}  # log-laplace errors
             errors_4 = {}  # privbayes errors
-
-            df = pd.DataFrame(columns=["Legends"])
+            
+            df_main = pd.DataFrame()
             
             for count in self.counts:
                 errors_1[count] = {}
@@ -48,11 +48,9 @@ class Results():
                     errors_3[count][error_metr] = []
                     errors_4[count][error_metr] = []
             
-                    df[f"{count}_{error_metr}"] = pd.Series(dtype='float64')
-            
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
-
+                
                 errors_list_1 = {}  # approach
                 errors_list_2 = {}  # geometric
                 errors_list_3 = {}  # log-laplace
@@ -112,26 +110,85 @@ class Results():
 
                 #         ego_metric_mean_4 = np.mean(errors_list_4[count][error_metr])
                 #         errors_4[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_4)))
-                        
+                
+                df = pd.DataFrame(columns=["Legends", "Epslon"])
+                      
                 for error_metr in self.error_metrics:
                     for count in self.counts:
-                        ego_metric_mean_1 = errors_list_1[count][error_metr]
-                        new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta" })
-                        df = df.append(new_rows1, ignore_index=True)
                         
-                        ego_metric_mean_2 = errors_list_2[count][error_metr]
-                        new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico" })
-                        df = df.append(new_rows2, ignore_index=True)
-   
-                        ego_metric_mean_3 = errors_list_3[count][error_metr]
-                        new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace" })
-                        df = df.append(new_rows3, ignore_index=True)
-                                                
-                        ego_metric_mean_4 = errors_list_4[count][error_metr]
-                        new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes" })
-                        df = df.append(new_rows4, ignore_index=True)
-                        print(df)
+                        df[f"{count}_{error_metr}"] = pd.Series(dtype='float64')
+                        
+                        if df.empty:
+                                ego_metric_mean_1 = errors_list_1[count][error_metr]
+                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epslon': e })
+                                df = df.append(new_rows1, ignore_index=True)
+                                
+                                ego_metric_mean_2 = errors_list_2[count][error_metr]
+                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epslon': e  })
+                                df = df.append(new_rows2, ignore_index=True)
+        
+                                ego_metric_mean_3 = errors_list_3[count][error_metr]
+                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epslon': e  })
+                                df = df.append(new_rows3, ignore_index=True)
+                                                        
+                                ego_metric_mean_4 = errors_list_4[count][error_metr]
+                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epslon': e  })
+                                df = df.append(new_rows4, ignore_index=True)
 
+                        else:
+                            for i in range(len(es):
+                                if e > es[0]:
+                                    ego_metric_mean_1 = errors_list_1[count][error_metr]
+                                    new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epslon': e })
+                                    df = df.append(new_rows1, ignore_index=True)
+                                    
+                                    ego_metric_mean_2 = errors_list_2[count][error_metr]
+                                    new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epslon': e  })
+                                    df = df.append(new_rows2, ignore_index=True)
+            
+                                    ego_metric_mean_3 = errors_list_3[count][error_metr]
+                                    new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epslon': e  })
+                                    df = df.append(new_rows3, ignore_index=True)
+                                                            
+                                    ego_metric_mean_4 = errors_list_4[count][error_metr]
+                                    new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epslon': e  })
+                                    df = df.append(new_rows4, ignore_index=True)
+                                
+                                else:
+                                
+                                    ego_metric_mean_1 = errors_list_1[count][error_metr]
+                                    df.iloc[0:10, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_1
+                                        
+                                    ego_metric_mean_2 = errors_list_2[count][error_metr]
+                                    df.iloc[10:20, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_2
+                                    
+                                    ego_metric_mean_3 = errors_list_3[count][error_metr]
+                                    df.iloc[20:30, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_3
+                                    
+                                    ego_metric_mean_4 = errors_list_4[count][error_metr]
+                                    df.iloc[30:40, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_4
+
+                df_main = pd.concat([df_main, df], ignore_index=True) 
+                           
+                            # else:
+                            
+                            #     ego_metric_mean_1 = errors_list_1[count][error_metr]
+                            #     new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epslon': e })
+                            #     df = df.append(new_rows1, ignore_index=True)
+                                
+                            #     ego_metric_mean_2 = errors_list_2[count][error_metr]
+                            #     new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epslon': e  })
+                            #     df = df.append(new_rows2, ignore_index=True)                            
+                                
+                            #     ego_metric_mean_3 = errors_list_3[count][error_metr]
+                            #     new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epslon': e  })
+                            #     df = df.append(new_rows3, ignore_index=True)
+                                
+                            #     ego_metric_mean_4 = errors_list_4[count][error_metr]
+                            #     new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epslon': e  })
+                            #     df = df.append(new_rows4, ignore_index=True)                      
+
+                        
             legends = [
                         'Abordagem Proposta',
                         'Mecanismo Geométrico',
