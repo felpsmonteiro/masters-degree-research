@@ -29,14 +29,13 @@ class Results():
             with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
             
-            # with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_tab_2.pkl')), 'rb') as f:
-	        #     data_ =  pd.DataFrame(pkl.load(f), columns = ['DESTPORT','PROTOCOL','SERVICE', 'COUNT'])
-    
             errors_1 = {}  # approach errors
             errors_2 = {}  # geometric errors
             errors_3 = {}  # log-laplace errors
             errors_4 = {}  # privbayes errors
 
+            df = pd.DataFrame(columns=["Legends"])
+            
             for count in self.counts:
                 errors_1[count] = {}
                 errors_2[count] = {}
@@ -48,7 +47,9 @@ class Results():
                     errors_2[count][error_metr] = []
                     errors_3[count][error_metr] = []
                     errors_4[count][error_metr] = []
-
+            
+                    df[f"{count}_{error_metr}"] = pd.Series(dtype='float64')
+            
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
 
@@ -98,38 +99,38 @@ class Results():
                             error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
                             errors_list_4[count][error_metr].append(error_4) 
                 
+                # for error_metr in self.error_metrics:
+                #     for count in self.counts:
+                #         ego_metric_mean_1 = np.mean(errors_list_1[count][error_metr])
+                #         errors_1[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_1)))
+
+                #         ego_metric_mean_2 = np.mean(errors_list_2[count][error_metr])
+                #         errors_2[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_2)))
+
+                #         ego_metric_mean_3 = np.mean(errors_list_3[count][error_metr])
+                #         errors_3[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_3)))
+
+                #         ego_metric_mean_4 = np.mean(errors_list_4[count][error_metr])
+                #         errors_4[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_4)))
+                        
                 for error_metr in self.error_metrics:
                     for count in self.counts:
-                        ego_metric_mean_1 = np.mean(errors_list_1[count][error_metr])
-                        errors_1[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_1)))
-
-                        ego_metric_mean_2 = np.mean(errors_list_2[count][error_metr])
-                        errors_2[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_2)))
-
-                        ego_metric_mean_3 = np.mean(errors_list_3[count][error_metr])
-                        errors_3[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_3)))
-
-                        ego_metric_mean_4 = np.mean(errors_list_4[count][error_metr])
-                        errors_4[count][error_metr].append(float("{:.2f}".format(ego_metric_mean_4)))
+                        ego_metric_mean_1 = errors_list_1[count][error_metr]
+                        new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta" })
+                        df = df.append(new_rows1, ignore_index=True)
                         
-                # for error_metr in self.error_metrics:
-                #     df1 = pd.DataFrame()
-                #     df2 = pd.DataFrame()
-                #     df3 = pd.DataFrame()
-                #     df4 = pd.DataFrame()
-                                     
-                #     for count in self.counts:
-                #         ego_metric_mean_1 = errors_list_1[count][error_metr]
-                #         df1[f"{count}_{error_metr}"] = ego_metric_mean_1
-                        
-                #         ego_metric_mean_2 = errors_list_2[count][error_metr]
-                #         df2[f"{count}_{error_metr}"] = ego_metric_mean_2
-                        
-                #         ego_metric_mean_3 = errors_list_3[count][error_metr]
-                #         df3[f"{count}_{error_metr}"] = ego_metric_mean_3
-
-                #         ego_metric_mean_4 = errors_list_4[count][error_metr]
-                #         df4[f"{count}_{error_metr}"] = ego_metric_mean_4
+                        ego_metric_mean_2 = errors_list_2[count][error_metr]
+                        new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico" })
+                        df = df.append(new_rows2, ignore_index=True)
+   
+                        ego_metric_mean_3 = errors_list_3[count][error_metr]
+                        new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace" })
+                        df = df.append(new_rows3, ignore_index=True)
+                                                
+                        ego_metric_mean_4 = errors_list_4[count][error_metr]
+                        new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes" })
+                        df = df.append(new_rows4, ignore_index=True)
+                        print(df)
 
             legends = [
                         'Abordagem Proposta',
