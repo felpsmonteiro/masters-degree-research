@@ -165,9 +165,10 @@ class Results():
                     graph.set_xlabel('$\epsilon$', fontsize=15)
                     graph.set_ylabel(error_metr, fontsize=15)
                     graph.legend(fontsize=12)
+                    # graph.set_xlim(0.0, 1.0)
                     fig = graph.get_figure()
-                    fig.set_figwidth(5)
-                    fig.set_figheight(5)  
+                    fig.set_figwidth(6)
+                    fig.set_figheight(6)  
                     fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  error_metr, '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
                     
 
