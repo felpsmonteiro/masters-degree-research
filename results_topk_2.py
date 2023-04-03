@@ -1,30 +1,25 @@
 import os
-import numpy as np
 import pandas as pd
-import warnings
-warnings.filterwarnings("ignore")
-pd.set_option('display.max_rows', 1000)
-import seaborn as sns
+import numpy as np
 import functions as fc
 import pickle as pkl
 import mechanisms
 import err_metrics
 import graphics
 
-
-
-
 class Results():
 
     def __init__(self, 
                     datasets,
                     es,
+                    ks, 
                     error_metrics,
                     counts,
                     runs
                 ):
         self.datasets = datasets 
         self.es = es 
+        self.ks = ks 
         self.error_metrics = error_metrics 
         self.counts = counts 
         self.runs = runs 
@@ -34,29 +29,37 @@ class Results():
             print('***************** DATASET ' + dataset + ' *****************')
             with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
-            
-            df_main = pd.DataFrame()
-            
-            errors_1 = {}  # approach errors
-            errors_2 = {}  # geometric errors
-            errors_3 = {}  # log-laplace errors
-            errors_4 = {}  # privbayes errors
 
-            for count in self.counts:
-                errors_1[count] = {}
-                errors_2[count] = {}
-                errors_3[count] = {}
-                errors_4[count] = {}
-            
-                for error_metr in self.error_metrics:
-                    errors_1[count][error_metr] = []
-                    errors_2[count][error_metr] = []
-                    errors_3[count][error_metr] = []
-                    errors_4[count][error_metr] = []
-            
+            # original data
+            # protocols, services, ports = data[0], data[1], data[2]
+            # prot_count, serv_count, ports_count = data[3], data[4], data[5]
+
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
+
+                errors_1 = {}  # approach errors
+                errors_2 = {}  # geometric errors
+                errors_3 = {}  # log-laplace errors
+                errors_4 = {}  # privbayes errors
+
+                for count in self.counts:
+                    errors_1[count] = {}
+                    errors_2[count] = {}
+                    errors_3[count] = {}
+                    errors_4[count] = {}
                 
+                    for error_metr in self.error_metrics:
+                        errors_1[count][error_metr] = {}
+                        errors_2[count][error_metr] = {}
+                        errors_3[count][error_metr] = {}
+                        errors_4[count][error_metr] = {}
+
+                        for k in self.ks:
+                            errors_1[count][error_metr][k] = []
+                            errors_2[count][error_metr][k] = []
+                            errors_3[count][error_metr][k] = []
+                            errors_4[count][error_metr][k] = []
+
                 errors_list_1 = {}  # approach
                 errors_list_2 = {}  # geometric
                 errors_list_3 = {}  # log-laplace
@@ -69,10 +72,17 @@ class Results():
                     errors_list_4[count] = {}
 
                     for error_metr in self.error_metrics:
-                        errors_list_1[count][error_metr] = []
-                        errors_list_2[count][error_metr] = []
-                        errors_list_3[count][error_metr] = []
-                        errors_list_4[count][error_metr] = []
+                        errors_list_1[count][error_metr] = {}
+                        errors_list_2[count][error_metr] = {}
+                        errors_list_3[count][error_metr] = {}
+                        errors_list_4[count][error_metr] = {}
+
+                        for k in self.ks:
+                            errors_list_1[count][error_metr][k] = []
+                            errors_list_2[count][error_metr][k] = []
+                            errors_list_3[count][error_metr][k] = []
+                            errors_list_4[count][error_metr][k] = []
+                            
 
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
@@ -80,31 +90,31 @@ class Results():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset,'%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset,'%s_%s_%s_log_laplace_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset,'%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
 
                     for error_metr in self.error_metrics:
                         for count in self.counts:
-                            error_1 = err_metrics.calculate(error_metr, data[count], data1[count])
-                            errors_list_1[count][error_metr].append(error_1)
+                            for k in self.ks:
+                                error_1 = err_metrics.calculate(error_metr, data[count], data1[count], k)
+                                errors_list_1[count][error_metr][k].append(error_1) 
 
-                            error_2 = err_metrics.calculate(error_metr, data[count], data2[count])
-                            errors_list_2[count][error_metr].append(error_2) 
+                                error_2 = err_metrics.calculate(error_metr, data[count], data2[count], k)
+                                errors_list_2[count][error_metr][k].append(error_2) 
 
-                            error_3 = err_metrics.calculate(error_metr, data[count], data3[count])
-                            errors_list_3[count][error_metr].append(error_3) 
+                                error_3 = err_metrics.calculate(error_metr, data[count], data3[count], k)
+                                errors_list_3[count][error_metr][k].append(error_3) 
 
-                            error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
-                            errors_list_4[count][error_metr].append(error_4) 
-                
-                
-                df = pd.DataFrame(columns=["Legends", "Epsilon"])
+                                error_4 = err_metrics.calculate(error_metr, data[count], np.array(data4[count]), k)
+                                errors_list_4[count][error_metr][k].append(error_4) 
+
+                df = pd.DataFrame(columns=["Legends", "Epsilon", "Ks"])
                 
                 for error_metr in self.error_metrics:
                     for count in self.counts:
@@ -141,10 +151,6 @@ class Results():
                                 ego_metric_mean_4 = errors_list_4[count][error_metr]
                                 df.iloc[30:40, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_4
 
-                df_main = df_main.append(df)
-            
-            df_main = df_main.reset_index()
-                        
             legends = [
                         'Abordagem Proposta',
                         'Mecanismo Geométrico',
@@ -154,6 +160,13 @@ class Results():
 
             for error_metr in self.error_metrics:
                 for count in self.counts:
+                    # for k in self.ks:
+                    # y = []
+                    # y.append(errors_1[count][error_metr].values())
+                    # y.append(errors_2[count][error_metr].values())
+                    # y.append(errors_3[count][error_metr].values())
+                    # y.append(errors_4[count][error_metr].values())
+                    
                     sns.set_theme(style="darkgrid")
                     # graph.set(yscale='log')
                     graph = sns.lineplot(data=df_main, x="Epsilon", y=f"{count}_{error_metr}",
@@ -164,21 +177,26 @@ class Results():
                     graph.set_xlabel('$\epsilon$')
                     graph.set_ylabel(error_metr)
                     fig = graph.get_figure()
-                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  error_metr, '%s_%s_%s_result_2_sns.pdf' % ( dataset, count, error_metr) )))
-                    
+                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) )))
+
+                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
+                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
+
 
 if __name__ == "__main__":
 
     datasets = [
-                'kaggle',
-                'local'    
+                'local',
+                'kaggle'    
                 ]
 
     es = [ .1, .5, 1 ] 
 
+    ks = [50]
+    #ks = [10, 25, 50, 75, 100]
+
     error_metrics = [
-                    'mae',
-                    'mre'
+                    'jaccard'
                 ]
 
     counts = [
@@ -189,5 +207,5 @@ if __name__ == "__main__":
 
     runs = 10
 
-    approach = Results(datasets, es, error_metrics, counts, runs)
+    approach = Results(datasets, es, ks, error_metrics, counts, runs)
     approach.run()
