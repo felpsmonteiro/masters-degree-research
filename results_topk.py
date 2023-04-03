@@ -153,13 +153,13 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                'local'
-                # 'kaggle'    
+                # 'local'
+                'kaggle'    
                 ]
 
     es = [ .1, .5, 1 ] 
 
-    ks = [ 5, 10, 20]
+    ks = [ 25, 50, 100]
     #ks = [10, 25, 50, 75, 100]
 
     error_metrics = [
