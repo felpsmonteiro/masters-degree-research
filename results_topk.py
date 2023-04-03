@@ -87,16 +87,16 @@ class Results():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp',  dataset, '%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp',  dataset, '%s_%s_%s_log_laplace_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp',  dataset, '%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
 
                     for error_metr in self.error_metrics:
@@ -146,20 +146,20 @@ class Results():
                     y.append(errors_4[count][error_metr].values())
                     
 
-                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
+                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset, '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
                     graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
 
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                'kaggle'    
+                'local'
+                # 'kaggle'    
                 ]
 
-    es = [ .01, .1, .5, 1 ] 
+    es = [ .1, .5, 1 ] 
 
-    ks = [150]
+    ks = [ 5, 10, 20]
     #ks = [10, 25, 50, 75, 100]
 
     error_metrics = [
@@ -167,7 +167,7 @@ if __name__ == "__main__":
                 ]
 
     counts = [
-                'protocols',
+                # 'protocols',
                 'services',
                 'ports'
             ]

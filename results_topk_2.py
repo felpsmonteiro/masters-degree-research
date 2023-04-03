@@ -123,19 +123,19 @@ class Results():
                         
                         if df.empty:
                                 ego_metric_mean_1 = errors_list_1[count][error_metr]
-                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epsilon': e })
+                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epsilon': e, "Ks": k })
                                 df = df.append(new_rows1, ignore_index=True)
                                 
                                 ego_metric_mean_2 = errors_list_2[count][error_metr]
-                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epsilon': e  })
+                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epsilon': e, "Ks": k  })
                                 df = df.append(new_rows2, ignore_index=True)
         
                                 ego_metric_mean_3 = errors_list_3[count][error_metr]
-                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e  })
+                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e, "Ks": k  })
                                 df = df.append(new_rows3, ignore_index=True)
                                                         
                                 ego_metric_mean_4 = errors_list_4[count][error_metr]
-                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epsilon': e  })
+                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epsilon': e, "Ks": k })
                                 df = df.append(new_rows4, ignore_index=True)
 
                         else:

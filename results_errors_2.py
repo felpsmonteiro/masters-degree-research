@@ -154,17 +154,21 @@ class Results():
 
             for error_metr in self.error_metrics:
                 for count in self.counts:
-                    sns.set_theme(style="darkgrid")
-                    # graph.set(yscale='log')
+                    sns.set_theme(style="whitegrid")
+                    colors = ['#360CE8', '#4ECE00', '#faa43a', '#F01F0F', '#AF10E0']
+                    sns.set_palette(sns.color_palette(colors))
                     graph = sns.lineplot(data=df_main, x="Epsilon", y=f"{count}_{error_metr}",
-                                         hue="Legends", style="Legends", err_style='bars',
+                                         hue="Legends", style="Legends", err_style='band',
                                          markers=True, dashes=False)
                     graph.set_yscale('log')
                     # graph.set_title('$\epsilon$')
-                    graph.set_xlabel('$\epsilon$')
-                    graph.set_ylabel(error_metr)
+                    graph.set_xlabel('$\epsilon$', fontsize=15)
+                    graph.set_ylabel(error_metr, fontsize=15)
+                    graph.legend(fontsize=12)
                     fig = graph.get_figure()
-                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  error_metr, '%s_%s_%s_result_2_sns.pdf' % ( dataset, count, error_metr) )))
+                    fig.set_figwidth(5)
+                    fig.set_figheight(5)  
+                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  error_metr, '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
                     
 
 if __name__ == "__main__":
