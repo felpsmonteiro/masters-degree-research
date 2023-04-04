@@ -147,17 +147,18 @@ class Results():
                     
 
                     path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset, '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
-                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
+                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5))#, path=path_result)
 
 
 if __name__ == "__main__":
 
     datasets = [
-                # 'local'
+                'local',
                 'kaggle'    
                 ]
 
-    es = [ .1, .5, 1 ] 
+    es = [ .1] 
+    # es = [ .1, .5, 1 ] 
 
     ks = [ 25, 50, 100]
     #ks = [10, 25, 50, 75, 100]

@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import seaborn as sns
 import numpy as np
 import functions as fc
 import pickle as pkl
@@ -30,10 +31,8 @@ class Results():
             with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
-            # original data
-            # protocols, services, ports = data[0], data[1], data[2]
-            # prot_count, serv_count, ports_count = data[3], data[4], data[5]
-
+            df_main = pd.DataFrame()
+            
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
 
@@ -98,7 +97,7 @@ class Results():
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset,'%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
-
+                    
                     for error_metr in self.error_metrics:
                         for count in self.counts:
                             for k in self.ks:
@@ -114,43 +113,47 @@ class Results():
                                 error_4 = err_metrics.calculate(error_metr, data[count], np.array(data4[count]), k)
                                 errors_list_4[count][error_metr][k].append(error_4) 
 
-                df = pd.DataFrame(columns=["Legends", "Epsilon", "Ks"])
-                
-                for error_metr in self.error_metrics:
+                for k in self.ks:
+                    df = pd.DataFrame(columns=["Legends", "Epsilon", "Ks"])
+                    
                     for count in self.counts:
-                        
-                        df[f"{count}_{error_metr}"] = pd.Series(dtype='float64')
+                        df[f"{count}"] = pd.Series(dtype='float64')
                         
                         if df.empty:
-                                ego_metric_mean_1 = errors_list_1[count][error_metr]
-                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epsilon': e, "Ks": k })
-                                df = df.append(new_rows1, ignore_index=True)
-                                
-                                ego_metric_mean_2 = errors_list_2[count][error_metr]
-                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epsilon': e, "Ks": k  })
-                                df = df.append(new_rows2, ignore_index=True)
-        
-                                ego_metric_mean_3 = errors_list_3[count][error_metr]
-                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e, "Ks": k  })
-                                df = df.append(new_rows3, ignore_index=True)
-                                                        
-                                ego_metric_mean_4 = errors_list_4[count][error_metr]
-                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epsilon': e, "Ks": k })
-                                df = df.append(new_rows4, ignore_index=True)
+                            ego_metric_mean_1 = errors_list_1[count][error_metr][k]
+                            new_rows1 = pd.DataFrame({f"{count}": ego_metric_mean_1, 'Legends': "Abordagem Proposta", 'Epsilon': e, "Ks": k })
+                            df = df.append(new_rows1, ignore_index=True)
 
+                            ego_metric_mean_2 = errors_list_2[count][error_metr][k]
+                            new_rows2 = pd.DataFrame({f"{count}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epsilon': e, "Ks": k })
+                            df = df.append(new_rows2, ignore_index=True)
+                            
+                            ego_metric_mean_3 = errors_list_3[count][error_metr][k]
+                            new_rows3 = pd.DataFrame({f"{count}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e, "Ks": k })
+                            df = df.append(new_rows3, ignore_index=True)
+
+                            ego_metric_mean_4 = errors_list_4[count][error_metr][k]
+                            new_rows4 = pd.DataFrame({f"{count}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epsilon': e, "Ks": k })
+                            df = df.append(new_rows4, ignore_index=True)
+                            
                         else:
-                                ego_metric_mean_1 = errors_list_1[count][error_metr]
-                                df.iloc[0:10, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_1
+                            ego_metric_mean_1 = errors_list_1[count][error_metr][k]
+                            df.iloc[0:10, df.columns.get_loc(f"{count}")] = ego_metric_mean_1
 
-                                ego_metric_mean_2 = errors_list_2[count][error_metr]
-                                df.iloc[10:20, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_2
+                            ego_metric_mean_2 = errors_list_2[count][error_metr][k]
+                            df.iloc[10:20, df.columns.get_loc(f"{count}")] = ego_metric_mean_2
 
-                                ego_metric_mean_3 = errors_list_3[count][error_metr]
-                                df.iloc[20:30, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_3
+                            ego_metric_mean_3 = errors_list_3[count][error_metr][k]
+                            df.iloc[20:30, df.columns.get_loc(f"{count}")] = ego_metric_mean_3
 
-                                ego_metric_mean_4 = errors_list_4[count][error_metr]
-                                df.iloc[30:40, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_4
-
+                            ego_metric_mean_4 = errors_list_4[count][error_metr][k]
+                            df.iloc[30:40, df.columns.get_loc(f"{count}")] = ego_metric_mean_4
+                            
+                
+                    df_main = df_main.append(df)
+                
+                df_main = df_main.reset_index()
+            
             legends = [
                         'Abordagem Proposta',
                         'Mecanismo Geométrico',
@@ -158,41 +161,41 @@ class Results():
                         'Privbayes'
                     ]
 
-            for error_metr in self.error_metrics:
-                for count in self.counts:
-                    # for k in self.ks:
-                    # y = []
-                    # y.append(errors_1[count][error_metr].values())
-                    # y.append(errors_2[count][error_metr].values())
-                    # y.append(errors_3[count][error_metr].values())
-                    # y.append(errors_4[count][error_metr].values())
-                    
-                    sns.set_theme(style="darkgrid")
-                    # graph.set(yscale='log')
-                    graph = sns.lineplot(data=df_main, x="Epsilon", y=f"{count}_{error_metr}",
-                                         hue="Legends", style="Legends", err_style='bars',
+            
+            for count in self.counts:
+                # for k in self.ks:
+                    sns.set_theme(style="whitegrid")
+                    colors = ['#360CE8', '#4ECE00', '#faa43a', '#F01F0F', '#AF10E0']
+                    sns.set_palette(sns.color_palette(colors))
+                    graph = sns.lineplot(data=df_main, x="Ks", y=f"{count}",
+                                         hue="Legends", style="Legends", err_style='band',
                                          markers=True, dashes=False)
                     graph.set_yscale('log')
                     # graph.set_title('$\epsilon$')
-                    graph.set_xlabel('$\epsilon$')
-                    graph.set_ylabel(error_metr)
+                    graph.set_xlabel('K', fontsize=20)
+                    graph.set_ylabel('jaccard', fontsize=20)
+                    graph.legend(fontsize=20)
+                    # graph.set_xlim(0.0, 1.0)
                     fig = graph.get_figure()
-                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) )))
+                    fig.set_figwidth(7)
+                    fig.set_figheight(7)  
+                    fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
+                    # path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
+                    # graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
-                    path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
-                    graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
 
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                'kaggle'    
+                'local'
+                # 'kaggle'    
                 ]
 
-    es = [ .1, .5, 1 ] 
+    # es = [ .1, .5, 1 ] 
+    es = [ .1]
 
-    ks = [50]
+    ks = [5, 10, 20, 30]
     #ks = [10, 25, 50, 75, 100]
 
     error_metrics = [
@@ -200,7 +203,7 @@ if __name__ == "__main__":
                 ]
 
     counts = [
-                'protocols',
+                # 'protocols',
                 'services',
                 'ports'
             ]
