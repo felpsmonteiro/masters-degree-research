@@ -152,8 +152,22 @@ class Results():
                         'Privbayes'
                     ]
 
+            for e in self.es:
+                for error_metr in self.error_metrics:
+                    for count in self.counts:
+                        for l in legends:
+                            
+                            if error_metr == 'mre':
+                            
+                                media1 = df_main.loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == l), f"{count}_{error_metr}"].mean()
+                                print(dataset, "--", f"{count}_{error_metr}", "--", l, "--", e, "--", media1)                                
+                            
+                print('=' * 20)
+                print('=' * 20)
+            
             for error_metr in self.error_metrics:
                 for count in self.counts:
+                    print(df)
                     sns.set_theme(style="whitegrid")
                     colors = ['#360CE8', '#4ECE00', '#faa43a', '#F01F0F', '#AF10E0']
                     sns.set_palette(sns.color_palette(colors))

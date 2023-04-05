@@ -180,8 +180,6 @@ class Results():
                     fig.set_figwidth(7)
                     fig.set_figheight(7)  
                     fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
-                    # path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
-                    # graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
 
 
 
