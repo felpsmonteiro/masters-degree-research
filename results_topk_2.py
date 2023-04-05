@@ -177,8 +177,8 @@ class Results():
                     graph.legend(fontsize=20)
                     # graph.set_xlim(0.0, 1.0)
                     fig = graph.get_figure()
-                    fig.set_figwidth(8)
-                    fig.set_figheight(8)  
+                    fig.set_figwidth(7)
+                    fig.set_figheight(7)  
                     fig.savefig(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset,  '%s_%s_%s_result_2_sns.png' % ( dataset, count, error_metr) )))
                     # path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', '%s_%s_%s_%s_result_topk_2.png' % ( dataset, count, error_metr, k) ))  
                     # graphics.line_plot(np.array(self.ks), np.array(y), xlabel='k', ylabel= error_metr, ylog=False, line_legends=legends, figsize=(7, 5), path=path_result)
@@ -188,14 +188,15 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                # 'local'
-                'kaggle'    
+                'local'
+                # 'kaggle'    
                 ]
 
     # es = [ .1, .5, 1 ] 
     es = [ .1]
 
-    ks = [50, 100]
+    # ks = [50, 100]
+    ks = [5, 20]
     #ks = [10, 25, 50, 75, 100]
 
     error_metrics = [
