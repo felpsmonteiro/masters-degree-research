@@ -47,6 +47,7 @@ if __name__ == "__main__":
 
     datasets = [
                 'kaggle',
+                'kagglel',
                 'local'
                 ]
 

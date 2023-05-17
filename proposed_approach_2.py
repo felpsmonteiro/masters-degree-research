@@ -43,18 +43,15 @@ class ProposedApproach():
                     # 4. ports_noisy = data.groupby('DESTPORT')[e].sum().to_numpy;
                     ports_noisy = data.groupby('DESTPORT')[e].sum()
 
-                    # services_post_processed = mechanisms.post_processing(services_noisy.to_numpy())
-                    # protocols_post_processed = mechanisms.post_processing(protocols_noisy.to_numpy())
-                    # ports_post_processed = mechanisms.post_processing(ports_noisy.to_numpy())
-                    np.clip(level_noisy_p_apr[e][at][lv], 1, None)
+                    services_post_processed = mechanisms.post_processing(services_noisy.to_numpy())
+                    protocols_post_processed = mechanisms.post_processing(protocols_noisy.to_numpy())
+                    ports_post_processed = mechanisms.post_processing(ports_noisy.to_numpy())
+                    # np.clip(level_noisy_p_apr[e][at][lv], 1, None)
                     
                     noisy_data = {
-                        # 'protocols' : protocols_post_processed,
-                        # 'services' : services_post_processed,
-                        # 'ports' : ports_post_processed
-                        'protocols' : protocols_noisy,
-                        'services' : services_noisy,
-                        'ports' : ports_noisy
+                        'protocols' : protocols_post_processed,
+                        'services' : services_post_processed,
+                        'ports' : ports_post_processed
                     }
                     
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'wb') as f:
