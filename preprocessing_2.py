@@ -50,8 +50,11 @@ class PreProcessing():
 if __name__ == "__main__":
 
     url_kaggle = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2019-Network-flows.csv' ))
+    url_kagglel = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2020-Network-flows_2.csv' ))
     url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table4.csv' ))
     pre_proc_kaggle = PreProcessing(url_kaggle, 'kaggle')
+    pre_proc_kagglel = PreProcessing(url_kaggle, 'kagglel')
     pre_proc_local = PreProcessing(url_local, 'local' )
     pre_proc_kaggle.preprocess_dataset()
+    pre_proc_kagglel.preprocess_dataset()
     pre_proc_local.preprocess_dataset()
