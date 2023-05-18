@@ -1,7 +1,7 @@
 import os
+import time
 import pandas as pd
 import numpy as np
-import functions as fc
 import pickle as pkl
 import mechanisms
 
@@ -29,6 +29,8 @@ class LogLaplace():
                 print('--------- eps ' + str(e) + ' ---------')
 
                 for r in range(self.runs):
+                    starttime = time.time()
+
                     print('...... run ' + str(r) + ' ......')
                     protocols_noisy = mechanisms.log_laplace(prot_count, e/3)
                     services_noisy = mechanisms.log_laplace(serv_count, e/3)
@@ -43,6 +45,21 @@ class LogLaplace():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace_2.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
 
+                    endtime = time.time()
+
+                    elapsed_time = endtime - starttime
+        
+                    print('Elapsed Time:', elapsed_time, 'seconds\n')
+
+                    exectime = {
+                                    'starttime' : starttime,
+                                    'endtime' : endtime,
+                                    'time' : elapsed_time
+                                }
+        
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_log_laplace_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                                    pkl.dump(exectime, f)
+
 if __name__ == "__main__":
 
     datasets = [
@@ -53,7 +70,7 @@ if __name__ == "__main__":
 
     es = [ .1, .5, 1 ] 
 
-    runs = 10
+    runs = 50
 
     approach = LogLaplace(datasets, es, runs)
     approach.run()

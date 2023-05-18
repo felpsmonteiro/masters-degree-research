@@ -1,9 +1,10 @@
 import os
+import time
 import pandas as pd
 import numpy as np
-import functions as fc
 import pickle as pkl
 import mechanisms
+
 
 from DataSynthesizer.DataDescriber import DataDescriber
 from DataSynthesizer.DataGenerator import DataGenerator
@@ -21,13 +22,15 @@ class PrivBayes():
         self.datasets = datasets 
         self.size_dataset = size_dataset 
         self.es = es 
-        self.runs = runs 
+        self.runs = runs
+        self.datacsv = datacsv
+        self.sytheticdata = sytheticdata
 
     #### PrivBayes ####
     def privbayes(self, csv_path, threshold, catAttribute, candidateKeys, e, n, df_size, degree_bayesianNetwork):
             
-        description_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'description.json' ))   # f'./{mode}/'
-        synthetic_data_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'sythetic_data.csv' )) #    f'./{mode}/'
+        description_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', description, '.json' ))   # f'./{mode}/'
+        synthetic_data_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', sytheticdata, '.csv' )) #    f'./{mode}/'
 
         # An attribute is categorical if its domain size is less than this threshold.
         # Here modify the threshold to adapt to the domain size of "education" (which is 14 in input dataset).
@@ -83,6 +86,8 @@ class PrivBayes():
                 print('--------- eps ' + str(e) + ' ---------')
 
                 for r in range(self.runs):
+                    starttime = time.time()
+
                     print('...... run ' + str(r) + ' ......')
                     
                     traf_df = pd.read_csv( os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.datasets[dataset] )) , sep=';', nrows = None)
@@ -90,7 +95,7 @@ class PrivBayes():
 
                     traf_df_priv['INDEX_COLUMN'] = traf_df_priv.index
                     traf_df_priv.reset_index
-                    csv_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'privbayes.csv' ))
+                    csv_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', datacsv,'.csv' ))
                     traf_df_priv.to_csv(csv_path)
 
                     threshold = int(len(traf_df_priv['SERVICE'].unique()) + 10)
@@ -125,19 +130,72 @@ class PrivBayes():
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
+                    
+                    endtime = time.time()
+
+                    elapsed_time = endtime - starttime
+        
+                    print('Elapsed Time:', elapsed_time, 'seconds\n')
+
+                    exectime = {
+                                    'starttime' : starttime,
+                                    'endtime' : endtime,
+                                    'time' : elapsed_time
+                                }
+        
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_privbayes_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                                    pkl.dump(exectime, f)
 
 if __name__ == "__main__":
 
     datasets = {
-        'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv',
-        'local': 'traffic_table4.csv'
+        'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
+        #'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv',
+        #'local': 'traffic_table4.csv'
      }
 
-    es = [ .1, .5, 1 ] 
+    datacsv = {
+        'privbayes1'
+        # 'privbayes2',
+        # 'privbayes3',
+        # 'privbayes4',
+        # 'privbayes5',
+        # 'privbayes6',
+        # 'privbayes7',
+        # 'privbayes8',
+        # 'privbayes9'
+    }
 
-    runs = 10
+    sytheticdata = {
+        'sythetic_data1' 
+        # 'sythetic_data2', 
+        # 'sythetic_data3', 
+        # 'sythetic_data4', 
+        # 'sythetic_data5', 
+        # 'sythetic_data6', 
+        # 'sythetic_data7', 
+        # 'sythetic_data8', 
+        # 'sythetic_data9' 
+    }
+
+    description = {
+         'description1'
+        #  'description2',
+        #  'description3',
+        #  'description4',
+        #  'description5',
+        #  'description6',
+        #  'description7',
+        #  'description8',
+        #  'description9'
+    }
+
+    #es = [ .1, .5, 1 ] 
+    es = [ .1 ] 
+
+    runs = 50
 
     size_dataset = 1.0
 
-    approach = PrivBayes(datasets, size_dataset, es, runs)
+    approach = PrivBayes(datasets, size_dataset, es, runs, datacsv, sytheticdata)
     approach.run()
