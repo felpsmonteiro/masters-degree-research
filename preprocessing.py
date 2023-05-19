@@ -43,10 +43,10 @@ class PreProcessing():
                         'ports_names' : ports
                     }
         
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '_2.pkl')), 'wb') as f:
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '.pkl')), 'wb') as f:
             pkl.dump(new_data, f)
         
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '_tab_2.pkl')), 'wb') as f:
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.dataset_name + '_tab.pkl')), 'wb') as f:
             pkl.dump(df_counts, f)
         
         endtime = time.time()
@@ -60,7 +60,7 @@ class PreProcessing():
                         'time' : elapsed_time
                     }
 
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', self.dataset_name, '%s_executiontime_preprocessing_2.pkl' % ( self.dataset_name ))), 'wb') as f:
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', self.dataset_name, '%s_executiontime_preprocessing.pkl' % ( self.dataset_name ))), 'wb') as f:
                         pkl.dump(exectime, f)        
         
 
