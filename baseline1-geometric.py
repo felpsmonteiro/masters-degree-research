@@ -21,7 +21,7 @@ class Geometric():
         
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
 	            data = pkl.load(f)
 
             prot_count, serv_count, ports_count = data['protocols'], data['services'], data['ports']
@@ -44,7 +44,7 @@ class Geometric():
                         'ports' : ports_noisy
                     }
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
                     
                     endtime = time.time()
@@ -59,7 +59,7 @@ class Geometric():
                                     'time' : elapsed_time
                                 }
         
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_geometric_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_geometric.pkl' % ( dataset, e, r ))), 'wb') as f:
                                     pkl.dump(exectime, f)
 
 if __name__ == "__main__":
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     es = [ .1, .5, 1 ] 
 
-    runs = 3
+    runs = 50
 
     approach = Geometric(datasets, es, runs)
     approach.run()
