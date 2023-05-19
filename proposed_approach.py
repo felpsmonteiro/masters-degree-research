@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import numpy as np
-import functions as fc
 import pickle as pkl
 import mechanisms
 import time
@@ -22,7 +21,7 @@ class ProposedApproach():
             print('***************** DATASET ' + dataset + ' *****************')
             
             #  0. Ler dados tabelão salvo pre processamento
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_tab_2.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_tab.pkl')), 'rb') as f:
                 data = pkl.load(f)
          
             for e in self.es:
@@ -57,7 +56,7 @@ class ProposedApproach():
                         'ports' : ports_post_processed
                     }
                     
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
                     
                     endtime = time.time()
@@ -71,7 +70,7 @@ class ProposedApproach():
                                     'time' : elapsed_time
                                 }
         
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_approach_2.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_approach.pkl' % ( dataset, e, r ))), 'wb') as f:
                                     pkl.dump(exectime, f)
                                     
 if __name__ == "__main__":
