@@ -52,7 +52,7 @@ class PreProcessing():
         endtime = time.time()
         elapsed_time = endtime - starttime
 
-        print('Elapsed Time:', elapsed_time, 'seconds\n')
+        print(self.dataset_name,'\nElapsed Time:', elapsed_time, 'seconds\n')
 
         exectime = {
                         'starttime' : starttime,
@@ -60,7 +60,7 @@ class PreProcessing():
                         'time' : elapsed_time
                     }
 
-        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', self.dataset_name, '%s_%s_%s_executiontime_preprocessing_2.pkl' % ( self.dataset_name ))), 'wb') as f:
+        with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', self.dataset_name, '%s_executiontime_preprocessing_2.pkl' % ( self.dataset_name ))), 'wb') as f:
                         pkl.dump(exectime, f)        
         
 
@@ -71,8 +71,8 @@ if __name__ == "__main__":
     url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table4.csv' ))
     
     pre_proc_kaggle = PreProcessing(url_kaggle, 'kaggle')
-    pre_proc_kagglel = PreProcessing(url_kaggle, 'kagglel')
-    pre_proc_local = PreProcessing(url_local, 'local' )
+    pre_proc_kagglel = PreProcessing(url_kagglel, 'kagglel')
+    pre_proc_local = PreProcessing(url_local, 'local')
     
     pre_proc_kaggle.preprocess_dataset()
     pre_proc_kagglel.preprocess_dataset()

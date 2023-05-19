@@ -17,7 +17,9 @@ class PrivBayes():
                     datasets,
                     size_dataset,
                     es,
-                    runs
+                    runs,
+                    datacsv,
+                    sytheticdata
                 ):
         self.datasets = datasets 
         self.size_dataset = size_dataset 
@@ -29,8 +31,8 @@ class PrivBayes():
     #### PrivBayes ####
     def privbayes(self, csv_path, threshold, catAttribute, candidateKeys, e, n, df_size, degree_bayesianNetwork):
             
-        description_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', description, '.json' ))   # f'./{mode}/'
-        synthetic_data_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', sytheticdata, '.csv' )) #    f'./{mode}/'
+        description_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', '{}.json'.format(description[0]) ))   # f'./{mode}/'
+        synthetic_data_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', '{}.csv'.format(sytheticdata[0]) )) #    f'./{mode}/'
 
         # An attribute is categorical if its domain size is less than this threshold.
         # Here modify the threshold to adapt to the domain size of "education" (which is 14 in input dataset).
@@ -93,9 +95,11 @@ class PrivBayes():
                     traf_df = pd.read_csv( os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', self.datasets[dataset] )) , sep=';', nrows = None)
                     traf_df_priv = traf_df[['DESTPORT', 'PROTOCOL', 'SERVICE']]
 
-                    traf_df_priv['INDEX_COLUMN'] = traf_df_priv.index
-                    traf_df_priv.reset_index
-                    csv_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', datacsv,'.csv' ))
+                    traf_df_priv.reset_index(inplace=True)
+                    traf_df_priv = traf_df_priv.rename(columns={'index': 'INDEX_COLUMN'})
+                    # traf_df_priv['INDEX_COLUMN'] = traf_df_priv.index
+                    # traf_df_priv.reset_index
+                    csv_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', '{}.csv'.format(datacsv[0]) ))
                     traf_df_priv.to_csv(csv_path)
 
                     threshold = int(len(traf_df_priv['SERVICE'].unique()) + 10)
@@ -149,47 +153,48 @@ class PrivBayes():
 if __name__ == "__main__":
 
     datasets = {
-        #'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows_3.csv'
-        'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv'
+        # 'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
+        'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv',
         #'local': 'traffic_table4.csv'
      }
 
-    datacsv = {
-        #'privbayes1'
-        #'privbayes2'
-        #'privbayes3'
-         'privbayes4'
-        # 'privbayes5'
-        # 'privbayes6'
-        # 'privbayes7'
-        # 'privbayes8'
+    datacsv = [
+        # 'privbayes1'
+        # 'privbayes2',
+        # 'privbayes3',
+        'privbayes4',
+        # 'privbayes5',
+        # 'privbayes6',
+        # 'privbayes7',
+        # 'privbayes8',
         # 'privbayes9'
-    }
+    ]
 
-    sytheticdata = {
-        #'sythetic_data1'
-        #'sythetic_data2'
-        #'sythetic_data3', 
-         'sythetic_data4' 
+    sytheticdata = [
+        # 'sythetic_data1' 
+        # 'sythetic_data2', 
+        # 'sythetic_data3', 
+        'sythetic_data4', 
         # 'sythetic_data5', 
         # 'sythetic_data6', 
         # 'sythetic_data7', 
         # 'sythetic_data8', 
         # 'sythetic_data9' 
-    }
+    ]
 
-    description = {
-        # 'description1'
-        # 'description2'
-        # 'description3',
-          'description4'
+    description = [
+        #  'description1'
+        #  'description2',
+        #  'description3',
+         'description4',
         #  'description5',
         #  'description6',
         #  'description7',
         #  'description8',
         #  'description9'
-    }
+    ]
 
+    #es = [ .1, .5, 1 ] 
     es = [ .1 ] 
 
     runs = 50
