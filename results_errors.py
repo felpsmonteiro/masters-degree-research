@@ -2,17 +2,14 @@ import os
 import numpy as np
 import pandas as pd
 import warnings
-warnings.filterwarnings("ignore")
-pd.set_option('display.max_rows', 1000)
+# warnings.filterwarnings("ignore")
+# pd.set_option('display.max_rows', 1000)
 import seaborn as sns
 import functions as fc
 import pickle as pkl
 import mechanisms
 import err_metrics
 import graphics
-
-
-
 
 class Results():
 
