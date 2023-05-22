@@ -1,7 +1,6 @@
 import os
 import time
 import pandas as pd
-import numpy as np
 import pickle as pkl
 import mechanisms
 
@@ -63,9 +62,10 @@ class LogLaplace():
 if __name__ == "__main__":
 
     datasets = [
-                'kaggle',  
-                'kagglel',  
-                'local'
+                # 'kaggle',  
+                # 'kagglel',  
+                # 'local'
+                'unsw'
                 ]
 
     es = [ .1, .5, 1 ] 
