@@ -78,7 +78,7 @@ if __name__ == "__main__":
     #     #Labeled Network Traffic flows -- 1.28GB
     #     #https://www.kaggle.com/datasets/jsrojas/labeled-network-traffic-flows-114-applications
     
-    # url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table4.csv' ))
+    # url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table.csv' ))
     
     # pre_proc_kaggle = PreProcessing(url_kaggle, 'kaggle')
     pre_proc_unsw = PreProcessing(url_unsw, 'unsw')
