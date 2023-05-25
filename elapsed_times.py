@@ -18,10 +18,12 @@ class ElapsedTime():
 
     def __init__(self, 
                     datasets,
+                    datasetsnames,
                     es,
                     runs
                 ):
         self.datasets = datasets
+        self.datasetsnames = datasetsnames
         self.es       = es
         self.runs     = runs
 
@@ -52,20 +54,21 @@ class ElapsedTime():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
                             
-                    # with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
-	                #     data4 = pkl.load(f)
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
+	                    data4 = pkl.load(f)
                                  
                     item1 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Abordagem Proposta', 'Epsilon': e, 'ProcessingTime': data1['time'] + data_['time']}, index=[0])
-                    df = df.append(item1, ignore_index=True)
+                    df = pd.concat([df, item1], ignore_index=True)
                     
                     item2 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Mecanismo Geométrico', 'Epsilon': e, 'ProcessingTime': data2['time'] + data_['time']}, index=[0])
-                    df = df.append(item2, ignore_index=True)
+                    df = pd.concat([df, item2], ignore_index=True)
                     
                     item3 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Mecanismo Log-Laplace', 'Epsilon': e, 'ProcessingTime': data3['time'] + data_['time']}, index=[0])
-                    df = df.append(item3, ignore_index=True)
+                    df = pd.concat([df, item3], ignore_index=True)
 
-                    item4 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Privbayes', 'Epsilon': e, 'ProcessingTime': data3['time'] + data_['time']}, index=[0])
-                    df = df.append(item4, ignore_index=True)
+                    item4 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Privbayes', 'Epsilon': e, 'ProcessingTime': data4['time'] + data_['time']}, index=[0])
+                    df = pd.concat([df, item4], ignore_index=True)
+
            
         df['Dataset'] = df['Dataset'].map(datasetsnames)
         
@@ -76,12 +79,14 @@ if __name__ == "__main__":
     
     datasets = [
                 'local',
+                'unsw',
                 'kaggle',
                 'kagglel'
                 ]
     
     datasetsnames = {
                 'local': 'Local',
+                'unsw': 'Sidney University',
                 'kaggle': 'Labeled Network \nTraffic flows',
                 'kagglel': 'IP Network Traffic \nFlows Labeled'
                     }
@@ -90,5 +95,5 @@ if __name__ == "__main__":
 
     runs = 50
 
-    approach = ElapsedTime(datasets, es, runs)
+    approach = ElapsedTime(datasets, datasetsnames, es, runs)
     approach.run()

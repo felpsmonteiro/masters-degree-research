@@ -73,11 +73,10 @@ def plot_line_graph(data=None, x=None, y=None, hue=None, style=None,
     graph.set_yscale(yscale)
     fig = graph.get_figure()
     fig.savefig(f"{save_path}/{filename}")
-    
-    
+      
 def plot_bar_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, path=None, estimator=None,
                    xlabel=None, xlabelfontsize=None, ylabel=None, ylabelfontsize=None, legends_fontsize=None,
-                   title=None, xlog=False, ylog=False, themestyle=None, figsize=None,
+                   title=None, xlog=False, ylog=False, themestyle=None, figsize=None, errorb=None,
                    colors = None, figwidth=None, figheight=None, place=None, bottommargin=None):
 
     if colors:
@@ -88,7 +87,7 @@ def plot_bar_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, p
         fig = graph.get_figure()
     else:
         sns.set_theme(style=themestyle)
-        graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator)
+        graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator, errorbar=errorb)
         fig = graph.get_figure()
     
     graph.legend(fontsize=legends_fontsize)

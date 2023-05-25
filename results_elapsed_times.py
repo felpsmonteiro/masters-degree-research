@@ -1,18 +1,8 @@
 import os
-import numpy as np
-
-import pandas as pd
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
-import warnings
-import seaborn as sns
-import pickle as pkl
-import mechanisms
-import err_metrics
 import graphics
-import matplotlib.pyplot as plt
-
+import pandas as pd
+import numpy as np
+import pickle as pkl
 
 class ResultsElapsedTime():
 
@@ -28,23 +18,25 @@ class ResultsElapsedTime():
     def run(self):
         df = pd.read_pickle(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'elapsedtimes.pkl'))  )
                 
-        path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', 'processingtime.png'))  
+        path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', 'processingtime.png'))
         graphics.plot_bar_graph(df, 'Dataset', 'ProcessingTime', xticksize=15, yticksize=15, line_legends='Legends', path=path_result, estimator=np.mean,
                                 xlabel='Conjunto de Dados', xlabelfontsize=20, ylabel='Tempo de Processamento (seg)', ylabelfontsize=20,
-                                legends_fontsize=30, ylog=True, themestyle='whitegrid', figwidth=12, figheight=8, place='upper left',
+                                legends_fontsize=30, ylog=True, themestyle='whitegrid', figwidth=15, figheight=9, place='upper left', errorb='sd',
                                 colors = ['#360CE8', '#4ECE00', '#FAA43A', '#F01F0F', '#AF10E0'])
 if __name__ == "__main__":
     
     datasets = [
                 'local',
+                'unsw',
                 'kaggle',
                 'kagglel'
                 ]
     
     datasetsnames = {
                 'local': 'Local',
-                'kaggle': 'Labeled Network \nTraffic flows\n',
-                'kagglel': 'IP Network Traffic \nFlows Labeled\n'
+                'unsw': 'Sidney University',
+                'kaggle': 'Labeled Network \nTraffic flows',
+                'kagglel': 'IP Network Traffic \nFlows Labeled'
                     }
 
     es = [ .1, .5, 1 ] 
