@@ -62,10 +62,10 @@ class LogLaplace():
 if __name__ == "__main__":
 
     datasets = [
-                # 'kaggle',  
-                # 'kagglel',  
-                # 'local'
-                'unsw'
+                'local',
+                'unsw',
+                'kaggle',  
+                'kagglel'
                 ]
 
     es = [ .1, .5, 1 ] 
