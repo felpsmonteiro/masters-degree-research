@@ -76,10 +76,11 @@ class ProposedApproach():
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                'unsw',
-                'kaggle',
-                'kagglel'
+                'cic'
+                #'local',
+                #'unsw',
+                #'kaggle',
+                #'kagglel'
                 ]
 
     es = [ .1, .5, 1 ] 
