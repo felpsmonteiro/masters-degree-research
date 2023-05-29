@@ -155,7 +155,7 @@ if __name__ == "__main__":
     datasets = {
         # 'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
         #'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv',
-        'local': 'traffic_table4.csv'
+        'local': 'traffic_table.csv'
      }
 
     datacsv = [

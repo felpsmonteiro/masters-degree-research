@@ -11,8 +11,8 @@
             "SERVICE"
         ],
         "candidate_keys": [
-            "Unnamed: 0",
-            "INDEX_COLUMN"
+            "INDEX_COLUMN",
+            "Unnamed: 0"
         ],
         "non_categorical_string_attributes": [],
         "attributes_in_BN": [

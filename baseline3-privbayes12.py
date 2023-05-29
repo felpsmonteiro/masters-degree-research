@@ -109,8 +109,8 @@ class PrivBayes():
                     synthetic_data_path = self.privbayes(csv_path, threshold, cat_Attribute, candidateKeys, e, r, self.size_dataset*len(traf_df_priv), 2)
                     synthetic_data = pd.read_csv(synthetic_data_path)
 
-                    synthetic_data["DESTPORT"] = synthetic_data["DESTPORT"].astype(int)
-                    # synthetic_data["DESTPORT"] = pd.to_numeric(synthetic_data["DESTPORT"])
+                    # synthetic_data["DESTPORT"] = synthetic_data["DESTPORT"].astype(int)
+                    synthetic_data["DESTPORT"] = pd.to_numeric(synthetic_data["DESTPORT"])
 
                     p_count, s_count, pr_count = [], [], []
                                     
