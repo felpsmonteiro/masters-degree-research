@@ -64,10 +64,10 @@ class Geometric():
 if __name__ == "__main__":
 
     datasets = [
-                'local',
-                'unsw',
-                'kaggle',
-                'kagglel'
+                # 'local',
+                'cic'
+                # 'kaggle',
+                # 'kagglel'
                 ]
 
     es = [ .1, .5, 1 ] 

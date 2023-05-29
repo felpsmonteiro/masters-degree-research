@@ -156,7 +156,7 @@ if __name__ == "__main__":
         # 'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
         #'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv',
         # 'local': 'traffic_table4_3.csv'
-        'unsw': 'NUSW-NB15_GT.csv'
+        'cic': 'Canadian-Institute-for-Cybersecurity_2.csv'
      }
 
     datacsv = [

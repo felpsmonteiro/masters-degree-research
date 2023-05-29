@@ -66,27 +66,27 @@ class PreProcessing():
 
 if __name__ == "__main__":
 
-    url_kaggle = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2019-Network-flows.csv' ))
-    #     #https://www.kaggle.com/datasets/jsrojas/ip-network-traffic-flows-labeled-with-87-apps
+    # url_kaggle = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2019-Network-flows.csv' ))
+    # #     #https://www.kaggle.com/datasets/jsrojas/ip-network-traffic-flows-labeled-with-87-apps
     
-    url_cicit = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'NUSW-NB15_GT.csv' ))
+    url_cicit = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Canadian-Institute-for-Cybersecurity.csv' ))
     #https://www.kaggle.com/datasets/peterfriedrich1/cicdarknet2020-internet-traffic
     #CIC-Darknet2020 Internet Traffic
     
-    url_kagglel = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2020-Network-flows_2.csv' ))
-    #     #Labeled Network Traffic flows -- 1.28GB
-    #     #https://www.kaggle.com/datasets/jsrojas/labeled-network-traffic-flows-114-applications
+    # url_kagglel = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'Unicauca-dataset-April-June-2020-Network-flows_2.csv' ))
+    # #     #Labeled Network Traffic flows -- 1.28GB
+    # #     #https://www.kaggle.com/datasets/jsrojas/labeled-network-traffic-flows-114-applications
     
-    url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table.csv' ))
+    # url_local = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', 'traffic_table.csv' ))
     
-    pre_proc_local = PreProcessing(url_local, 'local')
-    pre_proc_cicit = PreProcessing(url_cicit, 'cicit')
-    pre_proc_kaggle = PreProcessing(url_kaggle, 'kaggle')
-    pre_proc_kagglel = PreProcessing(url_kagglel, 'kagglel')
+    # pre_proc_local = PreProcessing(url_local, 'local')
+    pre_proc_cic = PreProcessing(url_cicit, 'cic')
+    # pre_proc_kaggle = PreProcessing(url_kaggle, 'kaggle')
+    # pre_proc_kagglel = PreProcessing(url_kagglel, 'kagglel')
     
     
-    pre_proc_local.preprocess_dataset()
-    pre_proc_unsw.preprocess_dataset()
-    pre_proc_kaggle.preprocess_dataset()
-    pre_proc_kagglel.preprocess_dataset()
+    # pre_proc_local.preprocess_dataset()
+    pre_proc_cic.preprocess_dataset()
+    # pre_proc_kaggle.preprocess_dataset()
+    # pre_proc_kagglel.preprocess_dataset()
     

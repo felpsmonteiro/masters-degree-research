@@ -97,8 +97,10 @@ class PrivBayes():
 
                     traf_df_priv.reset_index(inplace=True)
                     traf_df_priv = traf_df_priv.rename(columns={'index': 'INDEX_COLUMN'})
+                    
                     # traf_df_priv['INDEX_COLUMN'] = traf_df_priv.index
                     # traf_df_priv.reset_index
+                    
                     csv_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', '{}.csv'.format(datacsv[0]) ))
                     traf_df_priv.to_csv(csv_path)
 
@@ -156,7 +158,7 @@ if __name__ == "__main__":
         # 'kaggle': 'Unicauca-dataset-April-June-2019-Network-flows.csv'
         #'kagglel': 'Unicauca-dataset-April-June-2020-Network-flows_2.csv',
         # 'local': 'traffic_table4_3.csv'
-        'unsw': 'NUSW-NB15_GT.csv'
+        'cic': 'Canadian-Institute-for-Cybersecurity.csv'
      }
 
     datacsv = [
