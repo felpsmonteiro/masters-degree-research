@@ -118,7 +118,10 @@ class PrivBayes():
                     traf_d_p = synthetic_data.groupby('PROTOCOL').count()['DESTPORT']
                                     
                     for p in ports:
-                        p_count.append(traf_d_pt[traf_d_pt.index == p].item())
+                        try:
+                            p_count.append(traf_d_pt[traf_d_pt.index == p].item())
+                        except:
+                            p_count.append(0)  
                         
                     for s in services:
                         s_count.append(traf_d_s[traf_d_s.index == s].item())
