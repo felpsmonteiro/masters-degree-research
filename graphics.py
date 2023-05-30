@@ -61,9 +61,9 @@ def line_plot(x, ys, path=None, line_legends=None, legend_path=None,
     plt.clf()
     plt.close()
 
-def plot_line_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, path=None, estimator=None,
+def plot_line_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, path=None,
                    xlabel=None, xlabelfontsize=None, ylabel=None, ylabelfontsize=None, legends_fontsize=None,
-                   title=None, xlog=False, ylog=False, themestyle=None, figsize=None, error=None,
+                   title=None,ylog=False, themestyle=None, error=None,
                    colors = None, figwidth=None, figheight=None, place=None, bottommargin=None):
 
     if colors:
