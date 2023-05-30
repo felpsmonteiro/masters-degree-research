@@ -1,13 +1,8 @@
 import os
 import numpy as np
 import pandas as pd
-import warnings
-# warnings.filterwarnings("ignore")
-# pd.set_option('display.max_rows', 1000)
 import seaborn as sns
-import functions as fc
 import pickle as pkl
-import mechanisms
 import err_metrics
 import graphics
 
@@ -29,7 +24,7 @@ class Results():
     def run(self):
         for dataset in self.datasets:
             print('***************** DATASET ' + dataset + ' *****************')
-            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '_2.pkl')), 'rb') as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'Datasets', dataset + '.pkl')), 'rb') as f:
 	            data = pkl.load(f)
             
             df_main = pd.DataFrame()
@@ -74,16 +69,16 @@ class Results():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes_2.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
 
                     for error_metr in self.error_metrics:
@@ -186,9 +181,10 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
+                'local',
+                'cic', 
                 'kaggle',
-                'kagglel',
-                'local'    
+                'kagglel'
                 ]
 
     es = [ .1, .5, 1 ] 
@@ -204,7 +200,7 @@ if __name__ == "__main__":
                 'ports'
             ]
 
-    runs = 10
+    runs = 50
 
     approach = Results(datasets, es, error_metrics, counts, runs)
     approach.run()

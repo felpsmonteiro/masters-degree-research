@@ -79,14 +79,14 @@ if __name__ == "__main__":
     
     datasets = [
                 'local',
-                'unsw',
+                'cic',
                 'kaggle',
                 'kagglel'
                 ]
     
     datasetsnames = {
                 'local': 'Local',
-                'unsw': 'Sidney University',
+                'cic': 'Canadian Institute \nfor Cybersecurity',
                 'kaggle': 'Labeled Network \nTraffic flows',
                 'kagglel': 'IP Network Traffic \nFlows Labeled'
                     }
