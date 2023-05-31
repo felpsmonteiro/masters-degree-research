@@ -136,13 +136,13 @@ def plot_bar_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, p
         color = colors
         sns.set_palette(sns.color_palette(color))
         graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator)
+        graph.legend(fontsize=legends_fontsize)
         fig = graph.get_figure()
     else:
         sns.set_theme(style=themestyle)
         graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator, errorbar=errorb)
+        graph.legend(fontsize=legends_fontsize)
         fig = graph.get_figure()
-    
-    graph.legend(fontsize=legends_fontsize)
     
     if ylog:
         graph.set_yscale('log')

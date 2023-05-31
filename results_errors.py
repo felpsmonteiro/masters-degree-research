@@ -150,7 +150,7 @@ class Results():
                                             path=path_result, xlabel='$\epsilon$', xlabelfontsize=20, ylabel=error_metr,
                                             ylabelfontsize=20, legends_fontsize=None, title=None, ylog=True, themestyle='whitegrid', error='band',
                                             figwidth=8, figheight=6, place='upper left', bottommargin=None, 
-                                            colors = ['#360CE8', '#4ECE00', '#FAA43A', '#F01F0F', '#AF10E0'])
+                                            colors = ['#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
 
 
 if __name__ == "__main__":
