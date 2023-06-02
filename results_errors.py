@@ -30,41 +30,47 @@ class Results():
             df_main = pd.DataFrame()
             
             errors_1 = {}  # approach errors
-            errors_2 = {}  # geometric errors
-            errors_3 = {}  # log-laplace errors
-            errors_4 = {}  # privbayes errors
+            errors_2 = {}  # approach_pp errors
+            errors_3 = {}  # geometric errors
+            errors_4 = {}  # log-laplace errors
+            errors_5 = {}  # privbayes errors
 
             for count in self.counts:
                 errors_1[count] = {}
                 errors_2[count] = {}
                 errors_3[count] = {}
                 errors_4[count] = {}
+                errors_5[count] = {}
             
                 for error_metr in self.error_metrics:
                     errors_1[count][error_metr] = []
                     errors_2[count][error_metr] = []
                     errors_3[count][error_metr] = []
                     errors_4[count][error_metr] = []
+                    errors_5[count][error_metr] = []
             
             for e in self.es:
                 print('--------- eps ' + str(e) + ' ---------')
                 
                 errors_list_1 = {}  # approach
-                errors_list_2 = {}  # geometric
-                errors_list_3 = {}  # log-laplace
-                errors_list_4 = {}  # privbayes
+                errors_list_2 = {}  # approach_pp
+                errors_list_3 = {}  # geometric
+                errors_list_4 = {}  # log-laplace
+                errors_list_5 = {}  # privbayes
 
                 for count in self.counts:
                     errors_list_1[count] = {}
                     errors_list_2[count] = {}
                     errors_list_3[count] = {}
                     errors_list_4[count] = {}
+                    errors_list_5[count] = {}
 
                     for error_metr in self.error_metrics:
                         errors_list_1[count][error_metr] = []
                         errors_list_2[count][error_metr] = []
                         errors_list_3[count][error_metr] = []
                         errors_list_4[count][error_metr] = []
+                        errors_list_5[count][error_metr] = []
 
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
@@ -78,6 +84,9 @@ class Results():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
+	                    data4 = pkl.load(f)
+                    
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
 
