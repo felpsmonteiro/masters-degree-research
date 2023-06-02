@@ -5,7 +5,7 @@ import pickle as pkl
 import mechanisms
 import time
 
-class ProposedApproach():
+class ProposedApproachPP():
 
     def __init__(self, 
                     datasets,
@@ -85,5 +85,5 @@ if __name__ == "__main__":
 
     runs = 50
 
-    approach = ProposedApproach(datasets, es, runs)
+    approach = ProposedApproachPP(datasets, es, runs)
     approach.run()

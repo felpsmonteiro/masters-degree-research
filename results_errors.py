@@ -77,18 +77,18 @@ class Results():
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
-
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
+                     
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data3 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_log_laplace.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data4 = pkl.load(f)
-                    
+
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
-	                    data4 = pkl.load(f)
+	                    data5 = pkl.load(f)
 
                     for error_metr in self.error_metrics:
                         for count in self.counts:
@@ -102,7 +102,10 @@ class Results():
                             errors_list_3[count][error_metr].append(error_3) 
 
                             error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
-                            errors_list_4[count][error_metr].append(error_4) 
+                            errors_list_4[count][error_metr].append(error_4)
+                            
+                            error_5 = err_metrics.calculate(error_metr, data[count], data5[count])
+                            errors_list_5[count][error_metr].append(error_5)
                 
                 df = pd.DataFrame({
                                     'Legends': pd.Series(dtype='str'),
@@ -121,16 +124,20 @@ class Results():
                                 df = pd.concat([df, new_rows1], ignore_index=True)
                                 
                                 ego_metric_mean_2 = errors_list_2[count][error_metr]
-                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Mecanismo Geométrico", 'Epsilon': e  })
+                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "Abordagem PostProcessing", 'Epsilon': e  })
                                 df = pd.concat([df, new_rows2], ignore_index=True)
         
                                 ego_metric_mean_3 = errors_list_3[count][error_metr]
-                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e  })
+                                new_rows3 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_3, 'Legends': "Mecanismo Geométrico", 'Epsilon': e  })
                                 df = pd.concat([df, new_rows3], ignore_index=True)
                                                         
                                 ego_metric_mean_4 = errors_list_4[count][error_metr]
-                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Privbayes", 'Epsilon': e  })
+                                new_rows4 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_4, 'Legends': "Mecanismo Log-Laplace", 'Epsilon': e  })
                                 df = pd.concat([df, new_rows4], ignore_index=True)
+                                
+                                ego_metric_mean_5 = errors_list_5[count][error_metr]
+                                new_rows5 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_5, 'Legends': "Privbayes", 'Epsilon': e  })
+                                df = pd.concat([df, new_rows5], ignore_index=True)
 
                         else:
                                 ego_metric_mean_1 = errors_list_1[count][error_metr]
@@ -144,6 +151,9 @@ class Results():
 
                                 ego_metric_mean_4 = errors_list_4[count][error_metr]
                                 df.iloc[150:200, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_4
+                                
+                                ego_metric_mean_5 = errors_list_5[count][error_metr]
+                                df.iloc[200:250, df.columns.get_loc(f"{count}_{error_metr}")] = ego_metric_mean_5
 
                 df_main = pd.concat([df_main, df], ignore_index=True)
             
@@ -159,13 +169,14 @@ class Results():
                                             path=path_result, xlabel='$\epsilon$', xlabelfontsize=20, ylabel=error_metr,
                                             ylabelfontsize=20, legends_fontsize=None, title=None, ylog=True, themestyle='whitegrid', error='band',
                                             figwidth=8, figheight=6, place='upper left', bottommargin=None, 
-                                            colors = ['#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
+                                            colors = ['#360CE8', '#41337F', '#4ECE00', '#FAA43A', '#F01F0F'])
 
 
 if __name__ == "__main__":
     
     legends = [
                 'Abordagem Proposta',
+                'Abordagem PostProcessing',
                 'Mecanismo Geométrico',
                 'Mecanismo Log-Laplace',
                 'Privbayes'
