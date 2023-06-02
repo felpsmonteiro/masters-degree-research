@@ -45,10 +45,10 @@ class ElapsedTime():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
                     
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_approach_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_dpnettraffic.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
                      
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
@@ -60,10 +60,10 @@ class ElapsedTime():
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_privbayes.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data5 = pkl.load(f)
                     
-                    item1 = pd.DataFrame({'Dataset': dataset, 'Legends': 'TrafficDP + PostProcessing', 'Epsilon': e, 'ProcessingTime': data2['time'] + data_['time']}, index=[0])
+                    item1 = pd.DataFrame({'Dataset': dataset, 'Legends': 'DPNetTraffic + PostProcessing', 'Epsilon': e, 'ProcessingTime': data2['time'] + data_['time']}, index=[0])
                     df = pd.concat([df, item1], ignore_index=True)
                     
-                    item2 = pd.DataFrame({'Dataset': dataset, 'Legends': 'TrafficDP', 'Epsilon': e, 'ProcessingTime': data1['time'] + data_['time']}, index=[0])
+                    item2 = pd.DataFrame({'Dataset': dataset, 'Legends': 'DPNetTraffic', 'Epsilon': e, 'ProcessingTime': data1['time'] + data_['time']}, index=[0])
                     df = pd.concat([df, item2], ignore_index=True)
                     
                     item3 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Mecanismo Geométrico', 'Epsilon': e, 'ProcessingTime': data3['time'] + data_['time']}, index=[0])

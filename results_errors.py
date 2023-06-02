@@ -29,8 +29,8 @@ class Results():
             
             df_main = pd.DataFrame()
             
-            errors_1 = {}  # approach errors
-            errors_2 = {}  # approach_pp errors
+            errors_1 = {}  # DPNetTraffic _ PostProcessing errors
+            errors_2 = {}  # DPNetTraffic errors
             errors_3 = {}  # geometric errors
             errors_4 = {}  # log-laplace errors
             errors_5 = {}  # privbayes errors
@@ -75,10 +75,10 @@ class Results():
                 for r in range(self.runs):
                     print('...... run ' + str(r) + ' ......')
 
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
                      
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach.pkl' % ( dataset, e, r ))), 'rb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_dpnettraffic.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data2 = pkl.load(f)
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_geometric.pkl' % ( dataset, e, r ))), 'rb') as f:
@@ -119,12 +119,12 @@ class Results():
                         
                         if df.empty:
                                 ego_metric_mean_1 = errors_list_1[count][error_metr]
-                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "TrafficDP + PostProcessing", 'Epsilon': e })
+                                new_rows1 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_1, 'Legends': "DPNetTraffic + PostProcessing", 'Epsilon': e })
                                 # df = df.append(new_rows1, ignore_index=True)
                                 df = pd.concat([df, new_rows1], ignore_index=True)
                                 
                                 ego_metric_mean_2 = errors_list_2[count][error_metr]
-                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "TrafficDP", 'Epsilon': e  })
+                                new_rows2 = pd.DataFrame({f"{count}_{error_metr}": ego_metric_mean_2, 'Legends': "DPNetTraffic", 'Epsilon': e  })
                                 df = pd.concat([df, new_rows2], ignore_index=True)
         
                                 ego_metric_mean_3 = errors_list_3[count][error_metr]
@@ -175,8 +175,8 @@ class Results():
 if __name__ == "__main__":
     
     legends = [
-                'TrafficDP + PostProcessing',
-                'TrafficDP',
+                'DPNetTraffic + PostProcessing',
+                'DPNetTraffic',
                 'Mecanismo Geométrico',
                 'Mecanismo Log-Laplace',
                 'Privbayes'

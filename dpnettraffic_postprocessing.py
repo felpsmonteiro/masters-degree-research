@@ -55,7 +55,7 @@ class ProposedApproachPP():
                         'ports' : ports_post_processed
                     }
                     
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_approach_pp.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'wb') as f:
 	                    pkl.dump(noisy_data, f)
                     
                     endtime = time.time()
@@ -69,7 +69,7 @@ class ProposedApproachPP():
                                     'time' : elapsed_time
                                 }
         
-                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_approach_pp.pkl' % ( dataset, e, r ))), 'wb') as f:
+                    with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'wb') as f:
                                     pkl.dump(exectime, f)
                                     
 if __name__ == "__main__":
