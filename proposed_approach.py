@@ -71,8 +71,8 @@ class ProposedApproach():
 if __name__ == "__main__":
 
     datasets = [
-                'cic',
                 'local',
+                'cic',
                 'kaggle',
                 'kagglel'
                 ]
