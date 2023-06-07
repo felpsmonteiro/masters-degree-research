@@ -21,7 +21,7 @@ class ResultsElapsedTime():
         path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', 'processingtime.png'))
         graphics.plot_bar_graph(df, 'Dataset', 'ProcessingTime', xticksize=15, yticksize=15, line_legends='Legends', path=path_result, estimator=np.mean,
                                 xlabel='Conjunto de Dados', xlabelfontsize=20, ylabel='Tempo de Processamento (seg)', ylabelfontsize=20,
-                                legends_fontsize=40, ylog=True, themestyle='whitegrid', figwidth=15, figheight=9, place='upper left', errorb=('ci', 95),
+                                legends_fontsize=17, ylog=True, themestyle='whitegrid', figwidth=15, figheight=9, place='upper left', errorb=('ci', 95),
                                 # colors = ['#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
                                 colors = ['#564A8E', '#5A3AEC', '#78CE43', '#F0B063', '#F35448']) #41337F   #564A8E
 if __name__ == "__main__":

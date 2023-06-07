@@ -82,7 +82,7 @@ def plot_line_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, 
         
     fig = graph.get_figure()
     
-    graph.legend(fontsize=legends_fontsize)
+    # graph.legend(fontsize=legends_fontsize)
     
     if ylog:
         graph.set_yscale('log')
@@ -105,20 +105,20 @@ def plot_line_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, 
         fig.set_figwidth(figwidth)
     if figheight:
         fig.set_figheight(figheight)
-    if bottommargin:
-        plt.subplots_adjust(bottom=bottommargin)
+    # if bottommargin:
+    #     plt.subplots_adjust(bottom=bottommargin)
 
     if place:
-        plt.legend(loc=place)
+        plt.legend(fontsize=legends_fontsize, loc=place)
     if path:
         if os.path.exists(path) == True:
-            graph.figure.savefig(path)
+            graph.figure.savefig(path, dpi=300)
             print('Graphic saved at: ' + path)
         
         else:
             dir_path = os.path.dirname(os.path.realpath(path))
             os.makedirs(dir_path, exist_ok=True)
-            graph.figure.savefig(path)
+            graph.figure.savefig(path, dpi=300)
             print('Graphic saved at: ' + path)
     else:
         plt.show()
@@ -136,12 +136,10 @@ def plot_bar_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, p
         color = colors
         sns.set_palette(sns.color_palette(color))
         graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator)
-        graph.legend(fontsize=legends_fontsize)
         fig = graph.get_figure()
     else:
         sns.set_theme(style=themestyle)
         graph = sns.barplot(data=d, x=x, y=y, hue=line_legends, estimator=estimator, errorbar=errorb)
-        graph.legend(fontsize=legends_fontsize)
         fig = graph.get_figure()
     
     if ylog:
@@ -165,14 +163,14 @@ def plot_bar_graph(d, x, y, xticksize=None, yticksize=None, line_legends=None, p
         fig.set_figwidth(figwidth)
     if figheight:
         fig.set_figheight(figheight)
-    if bottommargin:
-        plt.subplots_adjust(bottom=bottommargin)
+    # if bottommargin:
+    #     plt.subplots_adjust(bottom=bottommargin)
 
     if place:
-        plt.legend(loc=place)
+        plt.legend(fontsize=legends_fontsize, loc=place)
     if path:
         if os.path.exists(path) == True:
-            graph.figure.savefig(path)
+            graph.figure.savefig(path, dpi=300)
             print('Graphic saved at: ' + path)
         
         else:

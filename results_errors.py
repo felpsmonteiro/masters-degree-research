@@ -158,8 +158,7 @@ class Results():
                 df_main = pd.concat([df_main, df], ignore_index=True)
             
             df_main = df_main.reset_index()
-                        
-            
+                                    
             for error_metr in self.error_metrics:
                 for count in self.counts:
                    
@@ -167,10 +166,9 @@ class Results():
             
                     graphics.plot_line_graph(df_main, 'Epsilon', f'{count}_{error_metr}', xticksize=15, yticksize=15, line_legends='Legends',
                                             path=path_result, xlabel='$\epsilon$', xlabelfontsize=20, ylabel=error_metr,
-                                            ylabelfontsize=20, legends_fontsize=None, title=None, ylog=True, themestyle='whitegrid', error='band',
-                                            figwidth=8, figheight=6, place='upper left', bottommargin=None, 
-                                            colors = ['#360CE8', '#41337F', '#4ECE00', '#FAA43A', '#F01F0F'])
-
+                                            ylabelfontsize=20, legends_fontsize=17, title=None, ylog=True, themestyle='whitegrid', error='band',
+                                            figwidth=7, figheight=8, place='upper left', bottommargin=None, 
+                                            colors = ['#41337F', '#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
 
 if __name__ == "__main__":
     
