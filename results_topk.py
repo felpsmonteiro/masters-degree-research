@@ -186,17 +186,17 @@ class Results():
             
                     graphics.plot_line_graph(df_main, 'Ks', f'{count}', xticksize=15, yticksize=15, line_legends='Legends',
                                             path=path_result, xlabel='K', xlabelfontsize=20, ylabel='jaccard',
-                                            ylabelfontsize=20, legends_fontsize=None, title=None, ylog=True, themestyle='whitegrid', error='band',
-                                            figwidth=10, figheight=8, place='upper left', bottommargin=None, 
-                                            colors = ['#360CE8', '#41337F', '#4ECE00', '#FAA43A', '#F01F0F'])
+                                            ylabelfontsize=20, legends_fontsize=17, title=None, ylog=True, themestyle='whitegrid', error='band',
+                                            figwidth=9, figheight=9, place='lower right', bottommargin=None, 
+                                            colors = ['#41337F', '#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
 
 if __name__ == "__main__":
 
     datasets = [
-                # 'cic',
-                'local'
-                # 'kaggle'
-                # 'kagglel'
+                # 'cic'
+                # 'local'
+                'kaggle',
+                'kagglel'
                 ]
     legends = [
                 'DPNetTraffic + PostProcessing',
@@ -220,8 +220,19 @@ if __name__ == "__main__":
     # es = [ .1, .5, 1 ]
     es = [ .1]
 
-    ks = [5, 20]
-    #ks = [10, 25, 50, 75, 100]
+#Cic
+    #Ports:
+    # ks = [50, 100]
+    #Services
+    # ks = [1, 15]
+    
+#Local
+    #Ports and Services
+    # ks = [5, 20]
+
+#Kaggle and #Kagglel
+    #Ports and Services
+    ks = [50, 100]
 
     approach = Results(datasets, es, ks, error_metrics, counts, runs)
     approach.run()
