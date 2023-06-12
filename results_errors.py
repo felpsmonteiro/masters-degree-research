@@ -181,14 +181,14 @@ if __name__ == "__main__":
             ]
     
     datasets = [
-                'local',
+                # 'local',
                 'cic', 
-                'kaggle',
-                'kagglel'
+                # 'kaggle',
+                # 'kagglel'
                 ]
 
     error_metrics = [
-                    'mae',
+                    # 'mae',
                     'mre'
                 ]
 
