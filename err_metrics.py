@@ -1,6 +1,7 @@
 import numpy as np
+from scipy.stats import t
 
-def calculate(error_metric, orig, pert, k=2):
+def calculate(error_metric, orig, pert, k, alpha):
     if error_metric == 'mae':
         error = mae(orig, pert)
     
@@ -13,6 +14,9 @@ def calculate(error_metric, orig, pert, k=2):
     elif error_metric == 'jaccard':
         error = jaccard_distance_non_zeros(orig, pert, k=k)
     
+    elif error_metric == 'ttest':
+        error = ttest(orig, pert, alpha)
+
     return error
 
 # Mean Absolute Error
@@ -42,3 +46,29 @@ def jaccard_distance_non_zeros(orig, pert, k):
     distance = intersection_cardinality / float(union_cardinality)
     
     return distance
+
+# T-test p-value
+def ttest(sample1, sample2, alpha):
+    # Cálculo das estatísticas das duas amostras
+    n1 = len(sample1)
+    n2 = len(sample2)
+    mean1 = np.mean(sample1)
+    mean2 = np.mean(sample2)
+    var1 = np.var(sample1, ddof=1)
+    var2 = np.var(sample2, ddof=1)
+
+    # Cálculo do valor crítico de t para um determinado nível de significância (alpha)
+    pooled_var = ((n1 - 1) * var1 + (n2 - 1) * var2) / (n1 + n2 - 2)
+    se = np.sqrt(pooled_var * (1/n1 + 1/n2))
+    t_critical = np.abs(np.round(t.ppf(1 - alpha/2, n1 + n2 - 2), 4))
+
+    # Cálculo da estatística de teste
+    t_statistic = (mean1 - mean2) / se
+
+    # Verificação se a estatística de teste está na região de rejeição
+    if np.abs(t_statistic) > t_critical:
+        h0 = print(f'A diferença entre as médias é estatisticamente significativa. -- {t_critical}')
+    else:
+        h1 = print(f'A diferença entre as médias não é estatisticamente significativa. -- {t_critical}')
+
+    

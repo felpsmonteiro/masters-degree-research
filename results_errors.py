@@ -92,19 +92,19 @@ class Results():
 
                     for error_metr in self.error_metrics:
                         for count in self.counts:
-                            error_1 = err_metrics.calculate(error_metr, data[count], data1[count])
+                            error_1 = err_metrics.calculate(error_metr, data[count], data1[count], k=None, alpha=None)
                             errors_list_1[count][error_metr].append(error_1)
 
-                            error_2 = err_metrics.calculate(error_metr, data[count], data2[count])
+                            error_2 = err_metrics.calculate(error_metr, data[count], data2[count], k=None, alpha=None)
                             errors_list_2[count][error_metr].append(error_2) 
 
-                            error_3 = err_metrics.calculate(error_metr, data[count], data3[count])
+                            error_3 = err_metrics.calculate(error_metr, data[count], data3[count], k=None, alpha=None)
                             errors_list_3[count][error_metr].append(error_3) 
 
-                            error_4 = err_metrics.calculate(error_metr, data[count], data4[count])
+                            error_4 = err_metrics.calculate(error_metr, data[count], data4[count], k=None, alpha=None)
                             errors_list_4[count][error_metr].append(error_4)
                             
-                            error_5 = err_metrics.calculate(error_metr, data[count], data5[count])
+                            error_5 = err_metrics.calculate(error_metr, data[count], data5[count], k=None, alpha=None)
                             errors_list_5[count][error_metr].append(error_5)
                 
                 df = pd.DataFrame({
@@ -164,10 +164,10 @@ class Results():
                    
                     path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset, error_metr, '%s_%s_%s_result_log.png' % ( dataset, count, error_metr)))  
             
-                    graphics.plot_line_graph(df_main, 'Epsilon', f'{count}_{error_metr}', xticksize=15, yticksize=15, line_legends='Legends',
-                                            path=path_result, xlabel='$\epsilon$', xlabelfontsize=20, ylabel=error_metr,
-                                            ylabelfontsize=20, legends_fontsize=17, title=None, ylog=True, themestyle='whitegrid', error='band',
-                                            figwidth=7, figheight=8, place='upper left', bottommargin=None, 
+                    graphics.plot_line_graph(df_main, 'Epsilon', f'{count}_{error_metr}', xticksize=12, yticksize=12, line_legends='Legends',
+                                            path=path_result, xlabel='$\epsilon$', xlabelfontsize=15, ylabel=error_metr,
+                                            ylabelfontsize=17, legends_fontsize=18, title=None, ylog=True, themestyle='whitegrid', error='band',
+                                            figwidth=7, figheight=7, place='upper left', bottommargin=None, 
                                             colors = ['#41337F', '#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
 
 if __name__ == "__main__":
@@ -181,14 +181,14 @@ if __name__ == "__main__":
             ]
     
     datasets = [
-                # 'local',
+                'local',
                 'cic', 
-                # 'kaggle',
-                # 'kagglel'
+                'kaggle',
+                'kagglel'
                 ]
 
     error_metrics = [
-                    # 'mae',
+                    'mae',
                     'mre'
                 ]
 
