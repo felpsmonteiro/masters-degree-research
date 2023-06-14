@@ -6,7 +6,7 @@ import pickle as pkl
 import err_metrics
 import graphics
 from tqdm import tqdm
-
+ 
 
 class Results():
 
@@ -78,8 +78,6 @@ class Results():
 
                 
                 for r in range(self.runs):
-                    
-                    # print('...... run ' + str(r) + ' ......')
 
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
                         data1 = pkl.load(f)
@@ -167,22 +165,29 @@ class Results():
                 df_main = pd.concat([df_main, df], ignore_index=True)
             
             df_main = df_main.reset_index()
-            print()
             
-            for error_metr in self.error_metrics:
-                for count in self.counts:
-                    print(f"{count}_{error_metr}")
-                    
-                    for l in legends:
-                        print(l, np.mean(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == 0.5) & (df_main['Legends'] == l)].tolist()))
+            p1 = []
+            p2 = []
+            p3 = []
+            p4 = []
+            p5 = []
 
-                path_result = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'results', dataset, error_metr, '%s_%s_%s_result_log.png' % ( dataset, count, error_metr)))  
-        
-                graphics.plot_line_graph(df_main, 'Epsilon', f'{count}_{error_metr}', xticksize=12, yticksize=12, line_legends='Legends',
-                                        path=path_result, xlabel='$\epsilon$', xlabelfontsize=15, ylabel=error_metr,
-                                        ylabelfontsize=17, legends_fontsize=18, title=None, ylog=True, themestyle='whitegrid', error='band',
-                                        figwidth=7, figheight=7, place='upper left', bottommargin=None, 
-                                        colors = ['#41337F', '#360CE8', '#4ECE00', '#FAA43A', '#F01F0F'])
+            for e in es:
+                p1.append(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == 'DPNetTraffic + PostProcessing')].tolist())
+                p2.append(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == 'DPNetTraffic')].tolist())
+                p3.append(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == 'Mecanismo Geométrico')].tolist())
+                p4.append(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == 'Mecanismo Log-Laplace')].tolist())
+                p5.append(df_main[f"{count}_{error_metr}"].loc[(df_main['Epsilon'] == e) & (df_main['Legends'] == 'Privbayes')].tolist())
+    
+            for i in range(len(es)):
+                print(f'\n--------- Calculating pvalue -- Epsilon: {es[i]} ---------')
+                print(f"\t{count}_{error_metr}")
+                
+                print(f'DPPostProcessing + DPNetTraffic \n\tpvalue: {err_metrics.ttest(p1[i], p2[i])}')
+                print(f'DPNetTraffic + Mecanismo Geométrico \n\tpvalue: {err_metrics.ttest(p2[i], p3[i])}')
+                print(f'DPPostProcessing + Mecanismo Geométrico \n\tpvalue: {err_metrics.ttest(p1[i], p3[i])}')
+                print(f'DPPostProcessing + Mecanismo Log-Laplace \n\tpvalue: {err_metrics.ttest(p1[i], p4[i])}')
+                print(f'DPPostProcessing + Privbayes \n\tpvalue: {err_metrics.ttest(p1[i], p5[i])}')
 
 if __name__ == "__main__":
     
@@ -196,9 +201,9 @@ if __name__ == "__main__":
     
     datasets = [
                 'local',
-                'cic', 
-                'kaggle',
-                'kagglel'
+                # 'cic', 
+                # 'kaggle',
+                # 'kagglel'
                 ]
 
     error_metrics = [
@@ -208,8 +213,8 @@ if __name__ == "__main__":
 
     counts = [
                 'protocols',
-                'services',
-                'ports'
+                # 'services',
+                # 'ports'
             ]
 
     runs = 50
