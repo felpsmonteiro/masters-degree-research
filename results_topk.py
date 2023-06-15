@@ -198,10 +198,10 @@ class Results():
 if __name__ == "__main__":
 
     datasets = [
-                # 'cic',
+                'cic',
                 # 'local',
-                'kaggle',
-                'kagglel'
+                # 'kaggle',
+                # 'kagglel'
                 ]
     legends = [
                 'DPNetTraffic + PostProcessing',
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     counts = [
                 # 'protocols',
                 'services',
-                'ports'
+                # 'ports'
             ]
 
     runs = 50
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     #Ports:
     # ks = [50, 100]
     #Services
-    # ks = [1, 15]
+    ks = [1, 15]
     
 #Local
     #Ports and Services
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 
 #Kaggle and #Kagglel
     #Ports and Services
-    ks = [50, 100]
+    # ks = [50, 100]
 
     approach = Results(datasets, es, ks, error_metrics, counts, runs)
     approach.run()

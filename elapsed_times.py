@@ -12,6 +12,8 @@ import mechanisms
 import err_metrics
 import graphics
 import matplotlib.pyplot as plt
+from tqdm import tqdm
+
 
 
 class ElapsedTime():
@@ -43,7 +45,7 @@ class ElapsedTime():
                 print('--------- eps ' + str(e) + ' ---------')
 
                 for r in range(self.runs):
-                    print('...... run ' + str(r) + ' ......')
+                    # print('...... run ' + str(r) + ' ......')
                     
                     with open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'exp', dataset, '%s_%s_%s_executiontime_dpnettraffic_pp.pkl' % ( dataset, e, r ))), 'rb') as f:
 	                    data1 = pkl.load(f)
@@ -74,6 +76,9 @@ class ElapsedTime():
 
                     item5 = pd.DataFrame({'Dataset': dataset, 'Legends': 'Privbayes', 'Epsilon': e, 'ProcessingTime': data5['time'] + data_['time']}, index=[0])
                     df = pd.concat([df, item5], ignore_index=True)
+                    
+                for i in tqdm (range(self.runs), desc="Loading...", colour='blue'):
+                        pass
 
            
         df['Dataset'] = df['Dataset'].map(datasetsnames)
