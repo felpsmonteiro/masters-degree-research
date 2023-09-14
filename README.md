@@ -1,6 +1,6 @@
 # DPNetTraffic
 
-The focus of this work was on the need to address the issue of ISPs selling network traffic data to streaming companies, as well as the importance of anonymizing the count of ports, protocols, and services for each connection flow. By anonymizing this information, the goal is to protect the privacy of users and prevent ISPs from exploiting or compromising their data.
+The focus of this work is on the need to address the issue of ISPs selling network traffic data to streaming companies, as well as the importance of anonymizing the count of ports, protocols, and services for each connection flow. By anonymizing this information, the goal is to protect the privacy of users and prevent ISPs from exploiting or compromising their data.
 
 ## Installation
 
